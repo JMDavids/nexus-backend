@@ -1,0 +1,82 @@
+
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 15px;">
+            <h2 class="text-center mb-4">Create account</h2>
+            <p class="text-center">Already have an account? <a href="Tutor-Sign-in.html">Sign in</a></p>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="First name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Last name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="E-mail" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Password" required>
+                </div>
+                <div class="form-group mt-4">
+                    <label for="subjects" class="font-weight-bold">Select Subjects:</label>
+                    <div class="form-check">
+                    
+                        <input type="checkbox" class="form-check-input" id="maths" name="subjects" value="Maths">
+                        <label class="form-check-label" for="maths">Maths</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="mathsLit" name="subjects" value="Maths Literacy">
+                        <label class="form-check-label" for="mathsLit">Maths Literacy</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="english" name="subjects" value="English">
+                        <label class="form-check-label" for="english">English</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="lifeScience" name="subjects" value="Life Science">
+                        <label class="form-check-label" for="lifeScience">Life Science</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="physicalScience" name="subjects" value="Physical Science">
+                        <label class="form-check-label" for="physicalScience">Physical Science</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="tourism" name="subjects" value="Tourism">
+                        <label class="form-check-label" for="tourism">Tourism</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="business" name="subjects" value="Business Studies">
+                        <label class="form-check-label" for="business">Business Studies</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="history" name="subjects" value="History">
+                        <label class="form-check-label" for="history">History</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="geography" name="subjects" value="Geography">
+                        <label class="form-check-label" for="geography">Geography</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+                <div class="form-check mt-3">
+                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                    <label class="form-check-label" for="termsCheck">
+                        I have read and agree to the <a href="#">Terms of Service</a>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
