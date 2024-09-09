@@ -70,3 +70,66 @@ body {
 .btn-primary:hover {
     background-color: #848485;
 }
+/* Global Styles */
+body {
+    background-color: #eaf4ff;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background-color: #fff;
+    height: 100vh;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+.sidebar a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.sidebar a i {
+    margin-right: 10px;
+}
+.sidebar a:hover {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+/* Profile Picture */
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Main Content Styles */
+.welcome-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Upcoming Classes */
+.upcoming-classes .class-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.upcoming-classes img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+
+.btn-attend {
+    width: 150px;
+    border-radius: 25px;
+}
