@@ -100,12 +100,14 @@ body {
     border-radius: 8px;
 }
 
-/* Profile Picture */
+/* Styling for the profile picture container */
 .profile-pic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 150px;          /* Set width */
+    height: 150px;         /* Set height */
+    object-fit: cover;     /* Ensure the image covers the entire container */
+    border-radius: 50%;    /* Make the image a perfect circle */
+    border: 2px solid #ddd; /* Add a light border for styling */
+    margin-bottom: 10px;   /* Add some space below the image */
 }
 
 /* Main Content Styles */
@@ -132,4 +134,27 @@ body {
 .btn-attend {
     width: 150px;
     border-radius: 25px;
+}
+
+.profile-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-input {
+    margin-top: 10px;
+}
+
+.custom-file-label {
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+}
+.form-group label {
+    font-weight: bold;
 }

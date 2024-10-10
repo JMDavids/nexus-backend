@@ -57,47 +57,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//settings 
-const userData ={
-    name : firstName,
-    surname : lastName,
-    email : email,
-    password : password,
-    profilePicture : "userImage.jpg"
-};
-// Check if there's a saved profile picture in local storage and update accordingly
-window.onload = function() {
-    const savedProfilePic = localStorage.getItem('profilePicture');
-    if (savedProfilePic) {
-        document.getElementById('profile-pic').src = savedProfilePic;
-        const settingsProfilePic = document.getElementById('settings-profile-pic');
-        if (settingsProfilePic) {
-            settingsProfilePic.src = savedProfilePic;
-        }
-    }
-};
-
-// Handle profile picture update in settings
-document.getElementById('profile-pic-input')?.addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
+ // Profile image change handling
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('fileInput').addEventListener('change', function(event) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-            const imageUrl = e.target.result;
-            document.getElementById('settings-profile-pic').src = imageUrl;
-            // Save the updated profile picture to local storage
-            localStorage.setItem('profilePicture', imageUrl);
-            document.getElementById('profile-pic').src = imageUrl;
+        reader.onload = function() {
+            document.getElementById('profileImage').src = reader.result;
         };
-        reader.readAsDataURL(file);
-    }
-});
+        reader.readAsDataURL(event.target.files[0]);
+    });
 
-// Handle form submission for updating profile details
-document.getElementById('settings-form')?.addEventListener('submit', function(event) {
-    event.preventDefault();
-    // Update other details if needed; example only handles the picture change
-    alert('Profile updated successfully!');
+    // Handle form submission
+    document.getElementById('profileForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const password = document.getElementById('password').value;
 
-    window.location.href= 'student-dashboard.html';
+        if (firstName && lastName && password) {
+            alert('Profile updated successfully!');
+            // Here you would typically send the data to the server for updating
+        } else {
+            alert('Please fill out all fields.');
+        }
+    });
 });
