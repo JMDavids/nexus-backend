@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="text-center mb-4">
+                   <!-- This needs backend -->
+                <img src="#" alt="Profile Picture" class="profile-pic">
+            </div>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+               <!-- This classes needs backend -->
+            <a href="#"><i class="fas fa-book"></i> Classes</a>
+            <a href="https://www.ecexams.co.za/ExaminationPapers.htm"><i class="fas fa-folder"></i> Resources</a>
+               <!-- I need to create Settings, Help & Feedback pages -->
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Help & Feedback</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container-fluid p-4">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="welcome-text">Welcome, <!-- Student name needs to appear here using backend --></h1>
+                      <!-- Text should change to when next class will be, backend -->
+                    <p>Your next class starts in 2 hours.</p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- I will be doing the calendar but it will need backend too. -->
+                <div class="col-md-6">
+                    <h5>TODAY</h5>
+                    <div class="card p-3">
+                        <p>The calendar will go here</p>
+                        <img src="#" alt="Calendar Today">
+                    </div>
+                </div>
+            <div class="row mt-4">
+                <!-- Upcoming Classes Section -->
+                <div class="col-md-6">
+                    <h5>UPCOMING CLASSES</h5>
+                    <div class="upcoming-classes">
+                        <div class="class-item">
+                            <img src="src/maths.png" alt="Mathematics">
+                            <div>
+                                <p><strong>MATHEMATICS</strong><br>In 2 hours.</p>
+                            </div>
+                        </div>
+                        <div class="class-item">
+                            <img src="src/ls.png" alt="Life Science Class">
+                            <div>
+                                <p><strong>LIFE SCIENCE</strong><br>Wednesday</p>
+                            </div>
+                        </div>
+                        <div class="class-item">
+                            <img src="src/maths.png" alt="Mathematics">
+                            <div>
+                                <p><strong>MATHEMATICS</strong><br>Friday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Attend Buttons -->
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                    <button class="btn btn-secondary btn-attend mb-3">Attend</button>
+                    <button class="btn btn-dark btn-attend mb-3">Attend</button>
+                    <button class="btn btn-light btn-attend">Attend</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
