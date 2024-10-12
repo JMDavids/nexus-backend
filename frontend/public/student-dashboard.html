@@ -32,17 +32,32 @@
                 <div class="col-12">
                     <h1 class="welcome-text">Welcome, <!-- Student name needs to appear here using backend --></h1>
                       <!-- Text should change to when next class will be, backend -->
-                    <p>Your next class starts in 2 hours.</p>
+                
                 </div>
             </div>
             <div class="row">
                 <!-- I will be doing the calendar but it will need backend too. -->
                 <div class="col-md-6">
-                    <h5>TODAY</h5>
-                    <div class="card p-3">
-                        <p>The calendar will go here</p>
-                        <img src="#" alt="Calendar Today">
-                    </div>
+                    <div class="calendar">
+                        <div class="header">
+                            <button id="prevMonth">❮</button>
+                            <h2 id="monthYear"></h2>
+                            <button id="nextMonth">❯</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody"></tbody>
+                        </table>
                 </div>
             <div class="row mt-4">
                 <!-- Upcoming Classes Section -->
@@ -78,5 +93,6 @@
             </div>
         </div>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>

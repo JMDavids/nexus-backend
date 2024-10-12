@@ -133,3 +133,38 @@ body {
     width: 150px;
     border-radius: 25px;
 }
+body {
+    font-family: Arial, sans-serif;
+}
+
+.calendar {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+tbody td {
+    height: 50px;
+}
