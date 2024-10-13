@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule a New Class</title>
+    <link rel="stylesheet" href="/styles.css">
+
+</head>
+<style>
+    
+    body {
+
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container {
+
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+}
+
+
+h2 {
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+
+label {
+
+    display: block;
+    margin: 10px 0 5px;
+
+}
+
+
+select, input[type="text"], input[type="date"], input[type="time"] {
+
+    width: 100%;
+
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+
+}
+
+
+.date-time-container {
+
+display: flex;
+
+justify-content: space-between;
+
+}
+
+
+.date-time-container div {
+
+width: 48%;
+
+}
+
+
+button {
+
+background-color: #0056b3;
+
+color: white;
+
+padding: 10px;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+width: 100%;
+
+}
+
+button:hover {
+
+background-color: #004080;
+
+}
+</style>
+<body>
+    <div class="container">
+        <h2>Schedule a New Class</h2>
+        <form>
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+                <option value="" disabled selected>Select subject</option>
+                <option value="">Mathematics</option>
+                <option value="">Life Science</option>
+                <option value="">History</option>
+                <option value="">English</option>
+                <option value="">Geography</option>
+                <option value="">Tourism</option>
+                <option value="">Business Studies</option>
+                <option value="">Physical Science</option>
+                
+            </select>
+                 <label for="title">Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter a title">
+             <label for="date">Date</label>
+             <input type="date" id="date" name="date">
+                 <div class="date-time-container">
+                <div>
+                    <label for="start-time">Start Time</label>
+                    <input type="time" id="start-time" name="start-time">
+                </div>
+                <div>
+                    <label for="end-time">End Time</label>
+                    <input type="time" id="end-time" name="end-time">
+                </div>
+            </div>
+            <label>
+                <input type="checkbox" name="online-class" id="online-class">
+
+                This will be an online class
+
+            </label>
+
+            <button type="submit">Schedule Class</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
