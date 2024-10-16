@@ -13,16 +13,21 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="text-center mb-4">
-                   <!-- This needs backend -->
-                <img src="#" alt="Profile Picture" class="profile-pic">
+            <div class="profile-container">
+              
+                <!-- Default Profile Picture -->
+                <img id="mainProfilePic" class="profile-picture" src="user.png" alt="Profile Picture">
+                <!-- Button to go to Profile Settings -->
+                <a href="profilesettings.html">
+                    <button class="button">Change Profile Picture</button>
+                </a>
             </div>
             <a href="index.html"><i class="fas fa-home"></i> Home</a>
                <!-- This classes needs backend -->
             <a href="#"><i class="fas fa-book"></i> Classes</a>
             <a href="https://www.ecexams.co.za/ExaminationPapers.htm"><i class="fas fa-folder"></i> Resources</a>
                <!-- I need to create Settings, Help & Feedback pages -->
-            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
             <a href="#"><i class="fas fa-question-circle"></i> Help & Feedback</a>
         </div>
 
@@ -30,13 +35,12 @@
         <div class="container-fluid p-4">
             <div class="row mb-4">
                 <div class="col-12">
-                    <h1 class="welcome-text">Welcome, <!-- Student name needs to appear here using backend --></h1>
-                      <!-- Text should change to when next class will be, backend -->
+                    <h1 class="welcome-text">Welcome <!-- User Name -->
                 
                 </div>
             </div>
             <div class="row">
-                <!-- I will be doing the calendar but it will need backend too. -->
+                <!-- Calendar -->
                 <div class="col-md-6">
                     <div class="calendar">
                         <div class="header">

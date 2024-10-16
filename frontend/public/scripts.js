@@ -164,3 +164,16 @@ nextMonthButton.addEventListener('click', () => {
 });
 
 generateCalendar(currentMonth, currentYear);
+
+//Profile Picture
+
+ // Get main profile picture element
+ const mainProfilePic = document.getElementById('mainProfilePic');
+
+ // Check if there's an image in localStorage
+ const storedImage = localStorage.getItem('profileImage');
+ if (storedImage) {
+     // If a profile image exists, update the src of the profile picture
+     mainProfilePic.src = storedImage;
+ }
+
