@@ -3,211 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutor Dashboard</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<style>
-    
-
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        padding: 20px;
-    }
-    
-    .dashboard {
-        max-width: 1200px;
-        margin: 0 auto;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-    
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    
-    header h1 {
-        color: #333;
-    }
-    
-    nav ul {
-        list-style: none;
-        display: flex;
-    }
-    
-    nav ul li {
-        margin-left: 20px;
-    }
-    
-    nav ul li a {
-        text-decoration: none;
-        color: #007bff;
-    }
-    
-    h2 {
-        color: #333;
-        margin-bottom: 10px;
-    }
-    
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    
-    table th, table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-    
-    table th {
-        background-color: #f9fafb;
-    }
-    
-    table tr:hover {
-        background-color: #f1f1f1;
-    }
-    
-    button {
-        padding: 8px 12px;
-        margin-right: 5px;
-        border: none;
-        background-color: #007bff;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    
-    button:hover {
-        background-color: #0056b3;
-    }
-    
-    .schedule-class form {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .schedule-class label {
-        grid-column: span 2;
-    }
-    
-    .schedule-class input, .schedule-class select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
-    
-    .schedule-class button {
-        grid-column: span 2;
-        padding: 10px;
-        background-color: #28a745;
-        border: none;
-        color: white;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-    
-    .schedule-class button:hover {
-        background-color: #218838;
-    }
-    
-</style>
 <body>
-    <div class="dashboard">
-        <header>
-            <h1>Nexus Tutoring Academy - Tutor Dashboard</h1>
-            <nav>
-                <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="/src/Schedule.html">Schedule New Class</a></li>
-                    <li><a href="#">Students</a></li>
-                </ul>
-            </nav>
-        </header>
-        <section class="upcoming-classes">
-            <h2>Upcoming Classes</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Students</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Life Science</td>
-                        <td>Plant Cell</td>
-                        <td>12/10/2024</td>
-                        <td>10</td>
-                        <td>
-                            <button>View Details</button>
-                            <button>Edit</button>
-                            <button>Cancel</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>English</td>
-                        <td>Reading and Writing</td>
-                        <td>14/10/2024</td>
-                        <td>5</td>
-                        <td>
-                            <button>View Details</button>
-                            <button>Edit</button>
-                            <button>Cancel</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
 
-        <!-- Schedule a New Class Section -->
-        <section class="schedule-class">
-            <h2>Schedule a New Class</h2>
-            <form>
-                <label for="subject">Subject:</label>
-                <select id="subject" name="subject">
-                    <option>Select subject</option>
-                    <option value="">Mathematics</option>
-                    <option value="">Life Science</option>
-                    <option value="">History</option>
-                    <option value="">English</option>
-                    <option value="">Geography</option>
-                    <option value="">Tourism</option>
-                    <option value="">Business Studies</option>
-                    <option value="">Physical Science</option>
-                </select>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-container">
+              
+                <!-- Default Profile Picture -->
+                <img id="mainProfilePic" class="profile-picture" src="user.png" alt="Profile Picture">
+                <!-- Button to go to Profile Settings -->
+                <a href="profilesettings.html">
+                    <button class="button">Change Profile Picture</button>
+                </a>
+            </div>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+               <!-- This classes needs backend -->
+            <a href="Schedule.html"><i class="fas fa-book"></i> Schedule New Class</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Help & Feedback</a>
+        </div>
 
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" placeholder="Enter a title">
-
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date">
-
-                <label for="start-time">Start Time:</label>
-                <input type="time" id="start-time" name="start-time">
-
-                <label for="end-time">End Time:</label>
-                <input type="time" id="end-time" name="end-time">
-
-                <label>
-                    This will be an online class
-                    <input type="checkbox" name="online-class" id="online-class">
-                </label>
-
-                <button type="submit">Schedule Class</button>
-            </form>
-        </section>
+        <!-- Main Content -->
+        <div class="container-fluid p-4">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="welcome-text">Welcome <!-- User Name -->
+                
+                </div>
+            </div>
+            <div class="row">
+                <!-- Calendar -->
+                <div class="col-md-6">
+                    <div class="calendar">
+                        <div class="header">
+                            <button id="prevMonth">❮</button>
+                            <h2 id="monthYear"></h2>
+                            <button id="nextMonth">❯</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody"></tbody>
+                        </table>
+                </div>
+            <div class="row mt-4">
+                <!-- Upcoming Classes Section -->
+                <section class="upcoming-classes">
+                    <h2>Upcoming Classes</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Students</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Life Science</td>
+                                <td>Plant Cell</td>
+                                <td>12/10/2024</td>
+                                <td>10</td>
+                                <td>
+                                    <button>View Details</button>
+                                    <button>Edit</button>
+                                    <button>Cancel</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td>Reading and Writing</td>
+                                <td>14/10/2024</td>
+                                <td>5</td>
+                                <td>
+                                    <button>View Details</button>
+                                    <button>Edit</button>
+                                    <button>Cancel</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
