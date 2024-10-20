@@ -8,8 +8,11 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['tutor', 'student'], default: 'tutor' },
-    subjects: { type: [String], required: true }
+    subjects: { type: [String], required: function() { return this.role === 'tutor'; } },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 }, {timestamps: true});
+
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();

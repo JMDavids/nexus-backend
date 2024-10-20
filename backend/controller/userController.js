@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 exports.registerUser = async (req, res) => {
     try {
@@ -8,37 +10,53 @@ exports.registerUser = async (req, res) => {
 
         const { username, firstName, lastName, email, password, role, subjects } = req.body;
 
-        // Check if the user already exists
-        let user = await User.findOne({ email });
-        if (user) {
-            console.log('User already exists with this email:', email); // Log duplicate email issue
-            return res.status(400).json({ message: 'User already exists' });
+        // **Input Validation**
+        if (!username || !firstName || !lastName || !email || !password || !role) {
+            return res.status(400).json({ message: 'Please fill in all required fields.' });
         }
 
-        let newUser;
-        if (role === 'tutor') {
-            newUser = new User({
-                username,  // Added username field
-                firstName,
-                lastName,
-                email,
-                password,
-                role,
-                subjects  // Only relevant for tutors
-            });
-        } else if (role === 'student') {
-            newUser = new User({
-                username,  // Added username field
-                firstName,
-                lastName,
-                email,
-                password,
-                role
-            });
-        } else {
+        // **Validate Role**
+        if (!['tutor', 'student'].includes(role)) {
             console.log('Invalid role provided:', role); // Log invalid role issue
             return res.status(400).json({ message: 'Invalid role' });
         }
+
+        // **Subjects Validation for Tutors**
+        if (role === 'tutor') {
+            if (!subjects || !Array.isArray(subjects) || subjects.length === 0) {
+                return res.status(400).json({ message: 'Please select at least one subject.' });
+            }
+            // Optionally validate subjects against a predefined list
+            const validSubjects = ['Maths', 'Maths Literacy', 'English', 'Life Science', 'Physical Science', 'Tourism', 'Business Studies', 'History', 'Geography'];
+            const invalidSubjects = subjects.filter(subject => !validSubjects.includes(subject));
+            if (invalidSubjects.length > 0) {
+                return res.status(400).json({ message: `Invalid subjects selected: ${invalidSubjects.join(', ')}` });
+            }
+        }
+
+        // **Check if the user already exists**
+        let existingUser = await User.findOne({ email });
+        if (existingUser) {
+            console.log('User already exists with this email:', email); // Log duplicate email issue
+            return res.status(400).json({ message: 'Email is already registered.' });
+        }
+
+
+        // **Create new user**
+        const newUserData = {
+            username,
+            firstName,
+            lastName,
+            email,
+            password,
+            role
+        };
+
+        if (role === 'tutor') {
+            newUserData.subjects = subjects; // Include subjects for tutors
+        }
+
+        const newUser = new User(newUserData);
 
         // Save user to the database
         await newUser.save();
@@ -59,38 +77,136 @@ exports.registerUser = async (req, res) => {
 
 // Login a user
 exports.loginUser = async (req, res) => {
-    const { email, password } = req.body;
-
     try {
-        // Check if the user exists
+        const { email, password } = req.body;
+        console.log('Login attempt:', email);
+
+        // Find user by email
         const user = await User.findOne({ email });
+
         if (!user) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid email or password.' });
         }
 
-        // Check password match
+        // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
+
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid email or password.' });
         }
 
         // Generate JWT token
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-            expiresIn: '1h'
+        const token = jwt.sign(
+            { userId: user._id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        // Prepare user data to send to the client
+        const userData = {
+            id: user._id,
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            role: user.role,
+            subjects: user.role === 'tutor' ? user.subjects : undefined
+        };
+
+        res.status(200).json({
+            message: 'Login successful',
+            token,
+            user: userData
+        });
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+// Configure your email transporter (using nodemailer)
+const transporter = nodemailer.createTransport({
+    // Replace with your email service configuration
+    host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "662d76bf88d0df",
+    pass: "6c384c62d38eba"
+  }
+});
+
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const normalizedEmail = email.toLowerCase().trim();
+
+        // Find the user by email
+        const user = await User.findOne({ email: normalizedEmail });
+        if (!user) {
+            return res.status(400).json({ message: 'No account with that email address exists.' });
+        }
+
+        // Generate a reset token
+        const resetToken = crypto.randomBytes(32).toString('hex');
+
+        // Hash the token and set it with expiration
+        const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
+        user.resetPasswordToken = resetTokenHash;
+        user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
+
+        await user.save();
+
+        // Create reset URL
+        const resetURL = `http://localhost:3000/ResetPassword-Student.html?token=${resetToken}&email=${encodeURIComponent(normalizedEmail)}`;
+
+        // Send email
+        const mailOptions = {
+            from: '"Your App" <no-reply@yourapp.com>', // Sender address
+            to: user.email,                             // List of receivers (user's email)
+            subject: 'Password Reset',                  // Subject line
+            text: `You requested a password reset. Click the link to reset your password: ${resetURL}`,
+            html: `<p>You requested a password reset.</p>
+                   <p>Click this <a href="${resetURL}">link</a> to reset your password.</p>`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ message: 'Password reset link sent.' });
+    } catch (error) {
+        console.error('Forgot password error:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+exports.resetPassword = async (req, res) => {
+    try {
+        const { email, token, password } = req.body;
+        const normalizedEmail = email.toLowerCase().trim();
+
+        // Hash the token provided by the user
+        const resetTokenHash = crypto.createHash('sha256').update(token).digest('hex');
+
+        // Find user by email and token, and check if token is not expired
+        const user = await User.findOne({
+            email: normalizedEmail,
+            resetPasswordToken: resetTokenHash,
+            resetPasswordExpires: { $gt: Date.now() }
         });
 
-        // Return user details along with the token
-        res.status(200).json({
-            message: `Welcome back, ${user.firstName}!`,
-            token,
-            user: {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                username: user.username,
-                role: user.role
-            }
-        });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid or expired password reset token.' });
+        }
+
+        // Update the user's password
+        user.password = password; // The pre-save hook will hash this
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        await user.save();
+
+        res.status(200).json({ message: 'Password has been reset.' });
+    } catch (error) {
+        console.error('Reset password error:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
     }
 };
