@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom styles for dark mode toggle */
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 15px;">
+            <h2 class="text-center mb-4">Settings</h2>
+            <form id="settingsForm">
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username">Change Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="New Username" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Change E-mail</label>
+                    <input type="email" id="email" class="form-control" placeholder="New E-mail" required>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Change Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="New Password" required>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <div class="form-group form-check">
+                    <input type="checkbox" id="darkModeToggle" class="form-check-input">
+                    <label for="darkModeToggle" class="form-check-label">Enable Dark Mode</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Save Settings</button>
+            </form>
+
+            <!-- Links to About, Terms, and Privacy -->
+            <div class="text-center mt-3">
+                <a href="AboutWebsite.html">About Website</a> |
+                <a href="TermsConditions.html">Terms & Conditions</a> |
+                <a href="PrivacyPolicy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+       
+        darkModeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>
