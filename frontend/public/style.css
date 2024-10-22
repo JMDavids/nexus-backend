@@ -101,3 +101,34 @@ body {
 .class-item button:hover {
     background-color: #64b5f6;
 }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    height: 100vh;
+}
+
+.sidebar .nav-link {
+    font-size: 18px;
+    padding: 15px;
+}
+
+.sidebar .nav-link.active {
+    font-weight: bold;
+    color: #007bff;
+}
+
+#calendar {
+    max-width: 100%;
+    margin-top: 20px;
+}
+/* Profile Picture Styling */
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
