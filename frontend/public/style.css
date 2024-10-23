@@ -91,7 +91,7 @@ body {
 
 .class-item button {
     padding: 10px 20px;
-    background-color: #90caf9;
+    background-color: #e8e9eb;
     border: none;
     border-radius: 10px;
     font-weight: bold;
@@ -99,7 +99,7 @@ body {
 }
 
 .class-item button:hover {
-    background-color: #64b5f6;
+    background-color: #bbbbbb;
 }
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -117,7 +117,7 @@ body {
 
 .sidebar .nav-link.active {
     font-weight: bold;
-    color: #007bff;
+    color: #a1a1a1;
 }
 
 #calendar {
@@ -131,4 +131,45 @@ body {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
+}
+/* Custom styles */
+.profile-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+.profile-details {
+    margin-bottom: 20px;
+}
+.profile-username {
+    color: #6c757d;
+}
+.profile-quote {
+    font-size: 14px;
+    color: #6c757d;
+}
+.profile-stats {
+    margin-top: 20px;
+}
+.profile-stats div {
+    display: inline-block;
+    margin: 0 15px;
+}
+.profile-stats div span {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+}
+.form-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
 }
