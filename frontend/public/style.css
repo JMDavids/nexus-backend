@@ -129,3 +129,28 @@ th {
 .hero {
     margin-bottom: 50px;
 }
+
+.class-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.class-item img.class-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.class-item .btn-attend {
+    width: auto;
+}
+
+.d-flex .btn-attend {
+    margin-right: 10px;
+}
