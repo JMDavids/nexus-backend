@@ -16,9 +16,9 @@
             <div class="profile-container">
               
                 <!-- Default Profile Picture -->
-                <img id="mainProfilePic" class="profile-picture" src="user.png" alt="Profile Picture">
+                <img id="mainProfilePic1" class="profile-picture" src="user.png" alt="Profile Picture">
                 <!-- Button to go to Profile Settings -->
-                <a href="profilesettings.html">
+                <a href="Tutor-profilesetting.html">
                     <button class="button">Change Profile Picture</button>
                 </a>
             </div>
@@ -96,6 +96,22 @@
                                 <button class="btn btn-dark btn-attend mr-2">Edit</button>
                                 <button class="btn btn-danger btn-attend">Cancel</button>
                             </div>
-    <script src="scripts.js"></script>
+    <script src="scripts.js">
+         </script>
+          <script src="scripts.js">
+      </script>
+      <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const mainProfilePic = document.getElementById('mainProfilePic1');
+
+    // Check if there's an image in localStorage
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+        // If a profile image exists, update the src of the profile picture
+        mainProfilePic.src = storedImage;
+    }
+});
+</script>
 </body>
 </html>

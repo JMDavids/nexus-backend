@@ -39,7 +39,7 @@
 
     <div class="profile-container">
         <h2>Profile Settings</h2>
-        <img id="settingsProfilePic" class="profile-picture" src="user.png" alt="Profile Picture">
+        <img id="settingsProfilePic1" class="profile-picture" src="user.png" alt="Profile Picture">
         <input type="file" id="fileInput" accept="image/*">
         <a href="student-dashboard.html">
             <button class="button">Save and Go Back to Profile</button>
@@ -49,7 +49,7 @@
     <script>
         // Get elements
         const fileInput = document.getElementById('fileInput');
-        const settingsProfilePic = document.getElementById('settingsProfilePic');
+        const settingsProfilePic = document.getElementById('settingsProfilePic1');
 
         // Check if there's an image in localStorage and set it in the profile settings
         const storedImage = localStorage.getItem('profileImage');
