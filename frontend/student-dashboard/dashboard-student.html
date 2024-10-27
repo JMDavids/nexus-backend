@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href='libs/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <!-- Profile Picture Section -->
+                    <div class="profile-section text-center mb-4">
+                        <img src="/frontend/student-dashboard/Libs/profile-icon.jpg" alt="Profile Picture" class="profile-pic img-fluid rounded-circle">
+                    </div>
+                    <!-- Navigation Links -->
+                     <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <button class="btn btn-dark btn-attend mb-3"> Change Profile Picture</button>                      
+                                </button>
+                            </a>
+                        </li>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="Classes.html"><i class="fas fa-book"></i> Schedule New Class</a>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="Resources.html"><i class="fas fa-folder"></i> Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="Student-settings.html"><i class="fas fa-cog"></i> Settings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="margin-top: 350px;">
+                               </i> Help & Feedback
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Main Content -->
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Welcome,</h1>
+                    <p>Your next class starts in 2 hours.</p>
+                </div>
+
+                <div class="row">
+                    <!-- Calendar Section -->
+                    <div class="col-md-8">
+                        <div id='calendar'></div>
+                    </div>
+
+                    <!-- Upcoming Classes Section -->
+                    <div class="col-md-4">
+                        <h4>Upcoming Classes</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <img src="src/maths.png" alt="Mathematics">
+                                <span>Mathematics</span> <small></small>
+                                <button class="btn btn-secondary btn-attend mb-3">Attend</button>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="/frontend/public/src/ls.png" alt="Life Science Class">
+                                <span>Life Science</span> <small></small>
+                                <button class="btn btn-dark btn-attend mb-3">Attend</button>
+                            </li>
+                            <li class="list-group-item">
+                                <img src="/frontend/public/src/maths.png" alt="Mathematics Class">
+                                <button class="btn btn-light btn-attend">Attend</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- FullCalendar JS -->
+    <script src='libs/fullcalendar/fullcalendar.min.js'></script>
+    <!-- Custom JS -->
+    <script src="calendar.js"></script>
+</body>
+</html>
