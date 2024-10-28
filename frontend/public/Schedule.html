@@ -99,46 +99,43 @@ background-color: #004080;
 <body>
     <div class="container">
         <h2>Schedule a New Class</h2>
-        <form>
+        <form id="createClassForm">
             <label for="subject">Subject</label>
             <select id="subject" name="subject">
                 <option value="" disabled selected>Select Subject</option>
-                <option value="">Mathematics</option>
-                <option value="">Life Science</option>
-                <option value="">History</option>
-                <option value="">English</option>
-                <option value="">Geography</option>
-                <option value="">Tourism</option>
-                <option value="">Business Studies</option>
-                <option value="">Physical Science</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Life Science">Life Science</option>
+                <option value="History">History</option>
+                <option value="English">English</option>
+                <option value="Geography">Geography</option>
+                <option value="Tourism">Tourism</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Physical Science">Physical Science</option>
                 
             </select>
-                 <label for="title">Title</label>
-                <input type="text" id="title" name="title" placeholder="Enter a title">
-             <label for="date">Date</label>
-             <input type="date" id="date" name="date">
-                 <div class="date-time-container">
-                <div>
-                    <label for="start-time">Start Time</label>
-                    <input type="time" id="start-time" name="start-time">
-                </div>
-                <div>
-                    <label for="end-time">End Time</label>
-                    <input type="time" id="end-time" name="end-time">
-                </div>
-            </div>
+
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter a title" required>
+        
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+        
+            <label for="start-time">Start Time</label>
+            <input type="time" id="start-time" name="start-time" required>
+        
+            <label for="end-time">End Time</label>
+            <input type="time" id="end-time" name="end-time" required>
+        
             <label>
-                <input type="checkbox" name="online-class" id="online-class">
-
+                <input type="checkbox" name="isOnline" id="isOnline">
                 This will be an online class
-
             </label>
-
+        
             <button type="submit">Schedule Class</button>
-
         </form>
-
     </div>
+
+    <script src="scripts.js"></script>
 
 </body>
 

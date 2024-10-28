@@ -98,42 +98,28 @@
 </head>
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+     <!-- Sidebar -->
+     <div class="sidebar">
         <a href="index.html">HOME</a>
         <a href="student-dashboard.html">DASHBOARD</a>
         <a href="Resources.html">RESOURCES</a>
         <a href="Tutor-Broadcast.html">INBOX</a>
         <a href="Student-settings.html">SETTINGS</a>
-       
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1 class="welcome-text">CLASSES</h1>
-        <input type="text" placeholder="Search classes" class="search-bar">
+        <h1 class="welcome-text">Available Tutors</h1>
+        <input type="text" placeholder="Search tutors" class="search-bar" id="searchBar">
 
-        <!-- Class List -->
-        <div class="class-item">
-            <div class="class-info">
-                <h3>Mr. Johnson</h3>
-                <p>Mathematics</p>
-            </div>
-            <button class="btn-attend">Enroll</button>
+        <!-- Tutors List -->
+        <div id="tutorList" class="tutor-list">
+            <!-- Tutors will be loaded here dynamically -->
         </div>
-
-        <div class="class-item">
-            <div class="class-info">
-                <h3>Mrs. Smith</h3>
-                <p>Life Sciences</p>
-            </div>
-            <button class="btn-attend">Enroll</button>
-        </div>
-
-        <!-- Add other class items similarly -->
-
     </div>
 
+    <!-- Include your JavaScript file -->
+    <script src="scripts.js"></script>
 </body>
 </html>
 
