@@ -361,9 +361,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert('Class scheduled successfully.');
+                    alert('Class scheduled successfully. Now, you will be redirected to Zoom to schedule a Zoom session. Once done, please go to your inbox to send the learners the Zoom ID and password.g');
                     // Optionally, redirect or reset form
                     createClassForm.reset();
+                    if (isOnline) {
+                     
+                        const zoomLink = `https://www.zoom.us/signin#/login`;
+                
+                        // Redirect to Zoom link
+                        window.location.href = zoomLink;
+                    } 
                 } else {
                     alert(result.message || 'Error scheduling class. Please try again.');
                 }
@@ -371,18 +378,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error:', error);
                 alert('Error scheduling class. Please try again later.');
             }
-
+            
             if (isOnline) {
-                // Construct your Zoom meeting link or use Zoom API to create a meeting
-                // Example using a basic Zoom link format (adjust as needed):
-                const zoomLink = `https://zoom.us/join?meeting_id=your_meeting_id_here`;
+               
+                const zoomLink = `https://www.zoom.us/signin#/login`;
         
                 // Redirect to Zoom link
                 window.location.href = zoomLink;
-            } else {
-                // Handle in-person class scheduling here (if necessary)
-                alert("We currently only provide online classes");
-            }
+            } 
         });
     }
 });
