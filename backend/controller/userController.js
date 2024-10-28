@@ -78,7 +78,7 @@ exports.registerUser = async (req, res) => {
 // Login a user
 exports.loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, role } = req.body;
         console.log('Login attempt:', email);
 
         // Find user by email
@@ -93,6 +93,11 @@ exports.loginUser = async (req, res) => {
 
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password.' });
+        }
+
+        // Validate user role
+        if (user.role !== role) {
+            return res.status(403).json({ message: 'Access denied. Incorrect role.' });
         }
 
         // Generate JWT token
@@ -207,6 +212,64 @@ exports.resetPassword = async (req, res) => {
         res.status(200).json({ message: 'Password has been reset.' });
     } catch (error) {
         console.error('Reset password error:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+exports.updateUserSettings = async (req, res) => {
+    try {
+        const userId = req.user.userId; // Retrieved from the authentication middleware
+        const { username, email, password } = req.body;
+
+        // Validate input (you can use a validation library or write custom validation)
+        // For simplicity, we'll assume the input is valid
+
+        const updateData = {};
+
+        if (username) {
+            updateData.username = username;
+        }
+
+        if (email) {
+            // Ensure the new email is not already in use
+            const existingUser = await User.findOne({ email });
+            if (existingUser && existingUser._id.toString() !== userId) {
+                return res.status(400).json({ message: 'Email is already in use by another account.' });
+            }
+            updateData.email = email.toLowerCase().trim();
+        }
+
+        if (password) {
+            // Hash the new password
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateData.password = hashedPassword;
+        }
+
+        // Update the user in the database
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            updateData,
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Prepare user data to send back (excluding sensitive information)
+        const userData = {
+            id: updatedUser._id,
+            username: updatedUser.username,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            email: updatedUser.email,
+            role: updatedUser.role,
+            subjects: updatedUser.role === 'tutor' ? updatedUser.subjects : undefined
+        };
+
+        res.status(200).json({ message: 'Settings updated successfully.', user: userData });
+    } catch (error) {
+        console.error('Update settings error:', error);
         res.status(500).json({ message: 'Server error. Please try again later.' });
     }
 };

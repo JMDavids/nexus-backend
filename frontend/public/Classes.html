@@ -3,47 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes</title>
+    <title>Classes Page</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Basic reset and body styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 200px;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #e2e6ea;
+        }
+
+        /* Main content styling */
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+        }
+        .welcome-text {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            padding: 10px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        /* Class item styling */
+        .class-item {
+            display: flex;
+            flex-direction: column; /* Change to column layout */
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .class-item:hover {
+            transform: scale(1.02);
+        }
+        .class-info {
+            margin-bottom: 10px; /* Space between text and button */
+        }
+        .btn-attend {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: flex-start; /* Align the button to the start */
+        }
+        .btn-attend:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Sidebar -->
     <div class="sidebar">
-        <ul>
-            <li>STUDENT</li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="student-dashboard.html">Student Dashboard</a></li>
-            <li><a href="Resources.html">Resources</a></li>
-            <li><a href="Student-Inbox.html">Inbox</a></li>
-            <li><a href="Student-settings.html">Settings</a></li>
-        </ul>
-        
+        <a href="index.html">HOME</a>
+        <a href="student-dashboard.html">DASHBOARD</a>
+        <a href="Resources.html">RESOURCES</a>
+        <a href="Tutor-Broadcast.html">INBOX</a>
+        <a href="Student-settings.html">SETTINGS</a>
+       
     </div>
 
-    <div class="content">
-        <div class="search-bar">
-            <input type="text" placeholder="Search classes">
-        </div>
-        <div class="class-list">
-            <!-- BACKEND -->
-            <div class="class-item">
-                <img src="teacher1.jpg" alt="Mr. Johnson">
-                <div class="info">
-                    <h3>MR JOHNSON</h3>
-                    <p>MATHEMATICS</p>
-                </div>
-                <button>Enroll</button>
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="welcome-text">CLASSES</h1>
+        <input type="text" placeholder="Search classes" class="search-bar">
+
+        <!-- Class List -->
+        <div class="class-item">
+            <div class="class-info">
+                <h3>Mr. Johnson</h3>
+                <p>Mathematics</p>
             </div>
-            <div class="class-item">
-                <img src="teacher2.jpg" alt="Mrs. Smith">
-                <div class="info">
-                    <h3>MRS SMITH</h3>
-                    <p>LIFE SCIENCES</p>
-                </div>
-                <button>Enroll</button>
-            </div>
-            <!-- Repeat for other teachers -->
+            <button class="btn-attend">Enroll</button>
         </div>
+
+        <div class="class-item">
+            <div class="class-info">
+                <h3>Mrs. Smith</h3>
+                <p>Life Sciences</p>
+            </div>
+            <button class="btn-attend">Enroll</button>
+        </div>
+
+        <!-- Add other class items similarly -->
+
     </div>
+
 </body>
 </html>
 

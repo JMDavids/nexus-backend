@@ -1,13 +1,8 @@
-<<<<<<< Updated upstream
-body {
-    background-color: #f7f7f7;
-=======
 *
  {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
->>>>>>> Stashed changes
     font-family: Arial, sans-serif;
 }
 
@@ -162,8 +157,6 @@ th {
 .d-flex .btn-attend {
     margin-right: 10px;
 }
-<<<<<<< Updated upstream
-=======
 .profile-quote {
     font-size: 14px;
     color: #6c757d;
@@ -269,4 +262,3 @@ header {
 .btn:hover {
     background-color: #555;
 }
->>>>>>> Stashed changes
