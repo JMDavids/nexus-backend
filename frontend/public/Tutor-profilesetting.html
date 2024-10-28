@@ -4,75 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Settings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .profile-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-        .button {
-            margin: 10px;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
-<body>
+<body style="font-family: Arial, sans-serif; background-color: #f0f4f8; margin: 20px; color: #333;">
 
-    <div class="profile-container">
-        <h2>Profile Settings</h2>
-        <img id="settingsProfilePic1" class="profile-picture" src="user.png" alt="Profile Picture">
-        <input type="file" id="fileInput" accept="image/*">
-        <a href="student-dashboard.html">
-            <button class="button">Save and Go Back to Profile</button>
+    <div class="profile-container" style="max-width: 400px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+        <h2 style="font-size: 1.8em; color: #333; margin-bottom: 20px;">Profile Settings</h2>
+        
+        <img id="settingsProfilePic" class="profile-picture" src="user.png" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #007BFF; margin-bottom: 20px;">
+        
+        <input type="file" id="fileInput" accept="image/*" style="margin: 15px 0; padding: 10px; font-size: 0.9em; width: 100%; border: 1px solid #ddd; border-radius: 5px; text-align: center; cursor: pointer; color: #333; background: #fff;">
+        
+        <a href="tutor-dashboard.html">
+            <button class="button" style="margin-top: 15px; padding: 12px 25px; background-color: #007BFF; color: white; border: none; cursor: pointer; border-radius: 25px; font-weight: bold; transition: background-color 0.3s ease; text-decoration: none;">Save and Go Back to Profile</button>
         </a>
     </div>
 
     <script>
-        // Get elements
-        const fileInput = document.getElementById('fileInput');
-        const settingsProfilePic = document.getElementById('settingsProfilePic1');
-
-        // Check if there's an image in localStorage and set it in the profile settings
-        const storedImage = localStorage.getItem('profileImage');
-        if (storedImage) {
-            settingsProfilePic.src = storedImage;
-        }
-
-        // Update profile picture when new image is selected
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const newImageSrc = e.target.result;
-                    // Update the profile picture in settings
-                    settingsProfilePic.src = newImageSrc;
-                    // Save the new image to localStorage
-                    localStorage.setItem('profileImage', newImageSrc);
-                }
-                reader.readAsDataURL(file);
+        document.addEventListener("DOMContentLoaded", function() {
+            const fileInput = document.getElementById('fileInput');
+            const settingsProfilePic = document.getElementById('settingsProfilePic');
+    
+            const storedImage = localStorage.getItem('profileImage');
+            if (storedImage) {
+                settingsProfilePic.src = storedImage;
             }
+    
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const newImageSrc = e.target.result;
+                        settingsProfilePic.src = newImageSrc;
+                        localStorage.setItem('profileImage', newImageSrc);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 
 </body>
 </html>
+
+
