@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Tutoring Academy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: #f4f4f4;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+
+        .profile-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar h2 {
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .welcome-text {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select, textarea {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            resize: none; /* Prevent resizing */
+        }
+
+        select {
+            height: auto; /* Allow the select box to resize */
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #3498db;
+        }
+        
+        .btn:focus {
+            outline: none; /* Remove focus outline */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-container">
+          
+        </div>
+        <a href="tutor-dashboard.html"><i class="icon-home"></i> Home</a>
+        <a href="Schedule.html"><i class="icon-calendar"></i> Schedule Class</a>
+        <a href="tutor-dashboard.html"><i class="icon-classes"></i> Dashboard</a>
+        <a href="Tutor-settings.html"><i class="icon-tutors"></i> Settings</a>
+       
+    </div>
+    
+    <div class="main-content">
+        <h1 class="welcome-text">Broadcast a message to students</h1>
+        <div class="form-section">
+            <form action="#" method="post">
+                <label for="class">Select Class:</label>
+                <select id="class" name="class">
+                    <option value="">--Select Class--</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="english">English</option>
+                    <option value="history">History</option>
+                    <!-- Add more classes as needed -->
+                </select>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" placeholder="Enter your message here..."></textarea>
+                
+                <div class="form-buttons">
+                    <button type="button" class="btn" onclick="cancel()">Cancel</button>
+                    <button type="submit" class="btn">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
