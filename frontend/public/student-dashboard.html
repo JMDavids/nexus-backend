@@ -14,9 +14,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="profile-container">
-                <!-- Default Profile Picture -->
                 <img id="mainProfilePic" class="profile-picture" src="user.png" alt="Profile Picture">
-                <!-- Button to go to Profile Settings -->
                 <a href="Student-profilesettings.html">
                     <button class="button">Change Profile Picture</button>
                 </a>
@@ -36,29 +34,15 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Calendar -->
+                <!-- Calendar Section -->
                 <div class="col-md-6">
-                    <div class="calendar">
-                        <div class="header d-flex justify-content-between align-items-center">
-                            <button id="prevMonth" class="btn btn-primary">❮</button>
-                            <h2 id="monthYear" class="text-center"></h2>
-                            <button id="nextMonth" class="btn btn-primary">❯</button>
-                        </div>
-                        <table class="table table-bordered mt-3">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>Sun</th>
-                                    <th>Mon</th>
-                                    <th>Tue</th>
-                                    <th>Wed</th>
-                                    <th>Thu</th>
-                                    <th>Fri</th>
-                                    <th>Sat</th>
-                                </tr>
-                            </thead>
-                            <tbody id="calendarBody"></tbody>
-                        </table>
-                    </div>
+                    <h5>Google Calendar</h5>
+                    <iframe src="https://calendar.google.com/calendar/embed?src=e6fb19f091c0bf3dcc0ccc625effb20acd875f9777e89e86eb796a769adbf894%40group.calendar.google.com&ctz=Africa%2FJohannesburg" 
+                            style="border: 0" 
+                            width="100%" 
+                            height="400" 
+                            frameborder="0" 
+                            scrolling="no"></iframe>
                 </div>
 
                 <!-- Upcoming Classes Section -->
@@ -92,27 +76,21 @@
                             </div>
                             <button class="btn btn-light btn-attend">Attend</button>
                         </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="scripts.js">
-      </script>
-      <script>
-
-document.addEventListener("DOMContentLoaded", function() {
-    const mainProfilePic = document.getElementById('mainProfilePic');
-
-    // Check if there's an image in localStorage
-    const storedImage = localStorage.getItem('profileImage');
-    if (storedImage) {
-        // If a profile image exists, update the src of the profile picture
-        mainProfilePic.src = storedImage;
-    }
-});
-</script>
-
-
+    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainProfilePic = document.getElementById('mainProfilePic');
+            const storedImage = localStorage.getItem('profileImage');
+            if (storedImage) {
+                mainProfilePic.src = storedImage;
+            }
+        });
     </script>
 </body>
 </html>
