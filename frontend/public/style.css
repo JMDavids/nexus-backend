@@ -1,81 +1,195 @@
-* {
+*
+ {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
 
-/* General Styling */
-body {
-    background-color: #f8f9fa;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-/* Profile Container */
+/* Profile Container Styling */
 .profile-container {
     text-align: center;
     margin-bottom: 20px;
 }
 
 .profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
-    margin-bottom: 10px;
+    width: 150px;          /* Adjust width */
+    height: 150px;         /* Adjust height */
+    border-radius: 50%;    /* Make the image circular */
+    object-fit: cover;     /* Ensure the image covers the entire container */
+    border: 2px solid #ddd; /* Add a light border for styling */
+    margin-bottom: 10px;   /* Add space below the image */
 }
 
 /* Sidebar Styling */
 .sidebar {
-    background-color: #343a40;
-    color: white;
-    width: 250px;
+    background-color: #fff;
     height: 100vh;
-    position: fixed;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
 }
-
-.sidebar h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
 .sidebar a {
-    display: block;
-    color: white;
     text-decoration: none;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background 0.3s;
     font-size: 16px;
     font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
 }
-
 .sidebar a i {
     margin-right: 10px;
 }
-
 .sidebar a:hover {
-    background-color: #495057;
+    background-color: #f0f0f0;
+    border-radius: 8px;
 }
 
 /* Main Content */
-.main-content {
-    margin-left: 270px;
+.welcome-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Upcoming Classes */
+.upcoming-classes .class-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.upcoming-classes img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Make these images circular as well */
+    margin-right: 10px;
+}
+
+.btn-attend {
+    width: 150px;
+    border-radius: 25px;
+}
+
+/* Highlight the current day */
+.current-day {
+    background-color:#add8e6;  /* Light red background */
+    font-weight: bold;          /* Bold text */
+    border-radius: 50%;         /* Circular background */
+    padding: 10px;              /* Adjust padding */
+}
+
+/* Rest of the calendar styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    text-align: center;
+    padding: 10px;
+}
+th {
+    background-color: #f0f0f0;
+}
+
+.class-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.class-item img.class-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.class-item .btn-attend {
+    width: 100px;
+}
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.hero-text {
+    flex: 1;
     padding: 20px;
 }
-
-.welcome-text {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    flex: 1;
+    padding: 20px;
+}
+/* Add some padding to space things out */
+.hero {
+    margin-bottom: 50px;
 }
 
-/* Navigation */
+.class-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.class-item img.class-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.class-item .btn-attend {
+    width: auto;
+}
+
+.d-flex .btn-attend {
+    margin-right: 10px;
+}
+.profile-quote {
+    font-size: 14px;
+    color: #6c757d;
+}
+.profile-stats {
+    margin-top: 20px;
+}
+.profile-stats div {
+    display: inline-block;
+    margin: 0 15px;
+}
+.profile-stats div span {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+}
+.form-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+.btn-attend {
+    width: 150px;
+    border-radius: 25px;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
 header {
     background-color: #fff;
     padding: 20px 40px;
@@ -100,22 +214,28 @@ header {
     font-weight: bold;
 }
 
-/* Hero Section */
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
 .hero {
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
     padding: 60px 20px;
     text-align: left;
     background-color: #eef4f8;
-    margin-bottom: 50px;
+}
+
+.hero-image {
+    max-width: 40%;
+    margin-right: 40px;
 }
 
 .hero-text {
     max-width: 600px;
-    flex: 1;
-    padding: 20px;
 }
 
 .hero-text h1 {
@@ -129,14 +249,6 @@ header {
     line-height: 1.6;
 }
 
-.hero-image {
-    max-width: 40%;
-    height: auto;
-    flex: 1;
-    padding: 20px;
-}
-
-/* Button Styling */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -145,136 +257,8 @@ header {
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    transition: background 0.3s;
 }
 
 .btn:hover {
     background-color: #555;
-}
-
-.btn-attend {
-    padding: 5px 15px;
-    border-radius: 25px;
-    width: 150px;
-}
-
-/* Upcoming Classes */
-.upcoming-classes .class-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.upcoming-classes img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.class-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    margin-bottom: 10px;
-}
-
-.class-item img.class-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
-
-/* Calendar */
-.current-day {
-    background-color: #add8e6;
-    font-weight: bold;
-    border-radius: 50%;
-    padding: 10px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    text-align: center;
-    padding: 10px;
-}
-
-th {
-    background-color: #f0f0f0;
-}
-
-/* Profile Section */
-.profile-quote {
-    font-size: 14px;
-    color: #6c757d;
-}
-
-.profile-stats {
-    margin-top: 20px;
-}
-
-.profile-stats div {
-    display: inline-block;
-    margin: 0 15px;
-}
-
-.profile-stats div span {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Form Section */
-.form-section {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-}
-
-/* Search Bar */
-.search-bar {
-    margin-bottom: 20px;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-}
-
-/* Messages */
-.message-list {
-    margin-top: 20px;
-}
-
-.message-item {
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.message-text {
-    flex-grow: 1;
-    margin-bottom: 5px;
-}
-
-.time {
-    font-size: 12px;
-    color: #6c757d;
-    align-self: flex-end;
 }
