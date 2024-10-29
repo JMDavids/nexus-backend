@@ -99,45 +99,44 @@
                 <div class="message-text">
                     <!-- Example on how message should look -->
                     <strong>Mason John</strong>
-                    <p>Hey there, I'm interested in joining your next lesson. I need assistance with Life Sciences.</p>
+                    <p>Password for Mathematics class is : h35778fg9</p>
                 </div>
                 <span class="time">15:47</span>
             </div>
             
         </div>
     </div>
+    
     <script>
-        // Mock function to simulate receiving a message from the tutor
-        function receiveMessage(sender, messageContent) {
+        //displaymessage
+        function displayMessages() {
             const messageList = document.getElementById('messageList');
-            
-            // Create a new message item
-            const messageItem = document.createElement('div');
-            messageItem.classList.add('message-item');
-            
-            // Message text content
-            const messageText = document.createElement('div');
-            messageText.classList.add('message-text');
-            messageText.innerHTML = `<strong>${sender}</strong><p>${messageContent}</p>`;
-            
-            // Timestamp
-            const timeStamp = document.createElement('span');
-            timeStamp.classList.add('time');
-            const now = new Date();
-            timeStamp.textContent = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
-            
-            // Append message text and timestamp to message item
-            messageItem.appendChild(messageText);
-            messageItem.appendChild(timeStamp);
-            
-            // Add message item to the message list
-            messageList.appendChild(messageItem);
+            const messages = JSON.parse(localStorage.getItem('tutorMessages')) || [];
+
+            // Clear existing messages
+            messageList.innerHTML = '';
+
+            // Display each message
+            messages.forEach((msg) => {
+                const messageItem = document.createElement('div');
+                messageItem.classList.add('message-item');
+
+                const messageText = document.createElement('div');
+                messageText.classList.add('message-text');
+                messageText.innerHTML = `<strong>${msg.class}</strong><p>${msg.message}</p>`;
+
+                const timeStamp = document.createElement('span');
+                timeStamp.classList.add('time');
+                timeStamp.textContent = msg.timestamp;
+
+                messageItem.appendChild(messageText);
+                messageItem.appendChild(timeStamp);
+                messageList.appendChild(messageItem);
+            });
         }
 
-        // Example of receiving a message from the tutor
-        setTimeout(() => {
-            receiveMessage('Tutor James', 'Please remember to complete your assignment for next week.');
-        }, 2000);
+        // Load messages on page load
+        window.onload = displayMessages;
     </script>
 </body>
 </html>
