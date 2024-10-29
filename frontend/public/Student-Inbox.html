@@ -91,43 +91,54 @@
     <div class="main-content">
         <div class="welcome-text">Welcome to your Messages</div>
         
-        <!-- Search Bar -->
-        <div class="search-bar">
-            <input type="text" placeholder="Search by name, email, or class">
-        </div>
+       
 
         <!-- Message List Section -->
         <div class="message-list">
             <div class="message-item">
                 <div class="message-text">
+                    <!-- Example on how message should look -->
                     <strong>Mason John</strong>
                     <p>Hey there, I'm interested in joining your next lesson. I need assistance with Life Sciences.</p>
                 </div>
                 <span class="time">15:47</span>
             </div>
-            <div class="message-item">
-                <div class="message-text">
-                    <strong>Sarah Blue</strong>
-                    <p>Hey there, I'm interested in joining your next lesson. I need assistance with Life Sciences.</p>
-                </div>
-                <span class="time">15:47</span>
-            </div>
-            <div class="message-item">
-                <div class="message-text">
-                    <strong>Leah James</strong>
-                    <p>Hey there, I'm interested in joining your next lesson. I need assistance with Life Sciences.</p>
-                </div>
-                <span class="time">15:47</span>
-            </div>
-            <div class="message-item">
-                <div class="message-text">
-                    <strong>Emily Brown</strong>
-                    <p>Hey there, I'm interested in joining your next lesson. I need assistance with Life Sciences.</p>
-                </div>
-                <span class="time">15:47</span>
-            </div>
+            
         </div>
     </div>
+    <script>
+        // Mock function to simulate receiving a message from the tutor
+        function receiveMessage(sender, messageContent) {
+            const messageList = document.getElementById('messageList');
+            
+            // Create a new message item
+            const messageItem = document.createElement('div');
+            messageItem.classList.add('message-item');
+            
+            // Message text content
+            const messageText = document.createElement('div');
+            messageText.classList.add('message-text');
+            messageText.innerHTML = `<strong>${sender}</strong><p>${messageContent}</p>`;
+            
+            // Timestamp
+            const timeStamp = document.createElement('span');
+            timeStamp.classList.add('time');
+            const now = new Date();
+            timeStamp.textContent = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
+            
+            // Append message text and timestamp to message item
+            messageItem.appendChild(messageText);
+            messageItem.appendChild(timeStamp);
+            
+            // Add message item to the message list
+            messageList.appendChild(messageItem);
+        }
+
+        // Example of receiving a message from the tutor
+        setTimeout(() => {
+            receiveMessage('Tutor James', 'Please remember to complete your assignment for next week.');
+        }, 2000);
+    </script>
 </body>
 </html>
 
