@@ -151,3 +151,111 @@ exports.getEnrolledStudents = async (req, res) => {
         res.status(500).json({ message: 'Server error. Please try again later.' });
     }
 };
+
+exports.getEnrolledClassesForStudent = async (req, res) => {
+    try {
+        const studentId = req.user.userId;
+        const role = req.user.role;
+
+        if (role !== 'student') {
+            return res.status(403).json({ message: 'Access denied. Only students can access this endpoint.' });
+        }
+
+        // Find classes where the student is enrolled
+        const classes = await Class.find({ studentsEnrolled: studentId });
+
+        res.status(200).json({ classes });
+    } catch (error) {
+        console.error('Error fetching enrolled classes:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+
+exports.updateClass = async (req, res) => {
+    try {
+        const classId = req.params.classId;
+        const tutorId = req.user.userId; // Assuming the auth middleware sets req.user
+
+        const { title, subject, date, startTime, endTime, isOnline } = req.body;
+
+        // Find the class by ID
+        const classToUpdate = await Class.findById(classId);
+        if (!classToUpdate) {
+            return res.status(404).json({ message: 'Class not found.' });
+        }
+
+        // Check if the authenticated user is the owner of the class
+        if (classToUpdate.tutor.toString() !== tutorId) {
+            return res.status(403).json({ message: 'Access denied. You do not own this class.' });
+        }
+
+        // Update fields if provided
+        if (title !== undefined) classToUpdate.title = title;
+        if (subject !== undefined) classToUpdate.subject = subject;
+        if (date !== undefined) classToUpdate.date = date;
+        if (startTime !== undefined) classToUpdate.startTime = startTime;
+        if (endTime !== undefined) classToUpdate.endTime = endTime;
+        if (isOnline !== undefined) classToUpdate.isOnline = isOnline;
+
+        await classToUpdate.save();
+
+        res.status(200).json({ message: 'Class updated successfully.', class: classToUpdate });
+    } catch (error) {
+        console.error('Error updating class:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+exports.deleteClass = async (req, res) => {
+    try {
+        const classId = req.params.classId;
+        const tutorId = req.user.userId;
+
+        // Find the class by ID
+        const classToDelete = await Class.findById(classId);
+        if (!classToDelete) {
+            return res.status(404).json({ message: 'Class not found.' });
+        }
+
+        // Check if the authenticated user is the owner of the class
+        if (classToDelete.tutor.toString() !== tutorId) {
+            return res.status(403).json({ message: 'Access denied. You do not own this class.' });
+        }
+
+        // Replace remove() with deleteOne()
+        await classToDelete.deleteOne();
+
+        res.status(200).json({ message: 'Class cancelled successfully.' });
+    } catch (error) {
+        console.error('Error deleting class:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+
+exports.getClassById = async (req, res) => {
+    try {
+        const classId = req.params.classId;
+        const tutorId = req.user.userId;
+
+        // Find the class by ID
+        const classData = await Class.findById(classId);
+        if (!classData) {
+            return res.status(404).json({ message: 'Class not found.' });
+        }
+
+        // Check if the authenticated user is the owner of the class
+        if (classData.tutor.toString() !== tutorId) {
+            return res.status(403).json({ message: 'Access denied. You do not own this class.' });
+        }
+
+        res.status(200).json({ class: classData });
+    } catch (error) {
+        console.error('Error fetching class details:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+
+

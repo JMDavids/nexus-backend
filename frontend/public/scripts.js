@@ -391,6 +391,128 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const editClassForm = document.getElementById('editClassForm');
+    if (editClassForm) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const classId = urlParams.get('classId');
+        console.log('Class ID from URL:', classId);
+
+        if (!classId) {
+            alert('Class ID not provided.');
+            window.location.href = 'tutor-dashboard.html';
+            return;
+        }
+
+        // Set classId in hidden field
+        document.getElementById('classId').value = classId;
+
+        // Fetch class details
+        fetchClassDetails(classId);
+
+        async function fetchClassDetails(classId) {
+            try {
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    alert('You are not authenticated. Please log in.');
+                    window.location.href = 'SignIn.html';
+                    return;
+                }
+
+                const response = await fetch(`http://localhost:3000/api/class/${classId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    const classData = result.class;
+                    populateForm(classData);
+                } else {
+                    alert(result.message || 'Error fetching class details.');
+                    window.location.href = 'tutor-dashboard.html';
+                }
+            } catch (error) {
+                console.error('Error fetching class details:', error);
+                alert('Error fetching class details. Please try again later.');
+            }
+        }
+
+        function populateForm(classData) {
+            document.getElementById('subject').value = classData.subject;
+            document.getElementById('title').value = classData.title;
+            document.getElementById('date').value = new Date(classData.date).toISOString().substr(0, 10);
+            document.getElementById('start-time').value = classData.startTime;
+            document.getElementById('end-time').value = classData.endTime;
+            document.getElementById('isOnline').checked = classData.isOnline;
+        }
+
+        editClassForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const classId = document.getElementById('classId').value;
+
+            // Get form values
+            const subject = document.getElementById('subject').value;
+            const title = document.getElementById('title').value.trim();
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('start-time').value;
+            const endTime = document.getElementById('end-time').value;
+            const isOnline = document.getElementById('isOnline').checked;
+
+            // Validate input
+            if (!subject || !title || !date || !startTime || !endTime) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const classData = {
+                subject,
+                title,
+                date,
+                startTime,
+                endTime,
+                isOnline
+            };
+
+            try {
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    alert('You are not authenticated. Please log in.');
+                    window.location.href = 'SignIn.html';
+                    return;
+                }
+
+                const response = await fetch(`http://localhost:3000/api/class/${classId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(classData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Class updated successfully.');
+                    window.location.href = 'tutor-dashboard.html';
+                } else {
+                    alert(result.message || 'Error updating class. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error updating class:', error);
+                alert('Error updating class. Please try again later.');
+            }
+        });
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
     const tutorListElement = document.getElementById('tutorList');
     const searchBar = document.getElementById('searchBar');
 
@@ -561,6 +683,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const classesContainer = document.getElementById('classesContainer');
     const mainProfilePic = document.getElementById('mainProfilePic1');
 
+    const subjectImageMap = {
+        'Mathematics': 'maths.png',
+        'Life Science': 'ls.png',
+        'Physical Science': 'phy.png',
+        'Business Studies': 'bus.png',
+        'English': 'eng.png',
+        'Geography': 'geo.png',
+        'Tourism': 'tour.png',
+        'History': 'hist.png',
+        // Add more subjects and their corresponding image filenames here
+    };
+    
+
     // Profile Picture Logic
     const storedImage = localStorage.getItem('profileImage');
     if (storedImage) {
@@ -596,8 +731,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(result.message || 'Error fetching classes. Please try again.');
             }
         } catch (error) {
-            console.error('Error fetching classes:', error);
-            alert('Error fetching classes. Please try again later.');
+            //console.error('Error fetching classes:', error);
+            //alert('Error fetching classes. Please try again later.');
         }
     }
 
@@ -610,12 +745,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         classes.forEach(cls => {
+            console.log('Class object:', cls); // Log the class object
+            console.log('Class ID:', cls._id);
+
+            const classId = cls._id || cls.id;
+
+            if (!classId) {
+                console.error('Class ID is undefined for class:', cls);
+                return;
+            }
+
             const classItem = document.createElement('div');
             classItem.classList.add('class-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
-
+        
+            // Get the image file name from the mapping
+            const imageFileName = subjectImageMap[cls.subject] || 'default.png';
+        
             classItem.innerHTML = `
                 <div class="d-flex align-items-center">
-                    <img src="src/${cls.subject.toLowerCase().replace(' ', '-')}.png" alt="${cls.subject} Class" class="class-img">
+                    <img src="src/${imageFileName}" alt="${cls.subject} Class" class="class-img">
                     <div>
                         <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
                         <p>Date: ${new Date(cls.date).toLocaleDateString()}<br>Students: ${cls.studentsEnrolled.length}</p>
@@ -627,7 +775,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="btn btn-danger btn-cancel-class" data-class-id="${cls._id}">Cancel</button>
                 </div>
             `;
-
+        
             classesContainer.appendChild(classItem);
         });
 
@@ -639,8 +787,71 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
+        // Add event listener to "Edit" buttons
+        document.querySelectorAll('.btn-edit-class').forEach(button => {
+            button.addEventListener('click', function() {
+                const classId = this.getAttribute('data-class-id');
+                console.log('Edit button clicked, classId:', classId);
+                if (!classId) {
+                    alert('Class ID not found.');
+                    return;
+                }
+                window.location.href = `edit-class.html?classId=${classId}`;
+            });
+        });
+
+        // Add event listener to "Cancel" buttons
+        document.querySelectorAll('.btn-cancel-class').forEach(button => {
+            button.addEventListener('click', function() {
+                const classId = this.getAttribute('data-class-id');
+                console.log('Cancel button clicked, classId:', classId);
+                if (!classId) {
+                    alert('Class ID not found.');
+                    return;
+                }
+                deleteClass(classId);
+            });
+        });
+
     
     }
+
+    async function deleteClass(classId) {
+        try {
+            const confirmDelete = confirm('Are you sure you want to cancel this class?');
+            if (!confirmDelete) return;
+
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('You are not authenticated. Please log in.');
+                window.location.href = 'SignIn.html';
+                return;
+            }
+
+            const response = await fetch(`http://localhost:3000/api/class/${classId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert('Class cancelled successfully.');
+                // Refresh the class list
+                fetchTutorClasses();
+            } else {
+                alert(result.message || 'Error cancelling class. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error cancelling class:', error);
+            alert('Error cancelling class. Please try again later.');
+        }
+    }
+
+    // Fetch and display classes on page load
+    fetchTutorClasses();
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -707,6 +918,129 @@ document.addEventListener('DOMContentLoaded', function() {
         studentsContainer.appendChild(list);
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const classesContainer = document.getElementById('classesContainerStudent');
+    const mainProfilePic = document.getElementById('mainProfilePic');
+
+    const subjectImageMap = {
+        'Mathematics': 'maths.png',
+        'Life Science': 'ls.png',
+        'Physical Science': 'phy.png',
+        'Business Studies': 'bus.png',
+        'English': 'eng.png',
+        'Geography': 'geo.png',
+        'Tourism': 'tour.png',
+        'History': 'hist.png',
+        // Add more subjects and their corresponding image filenames here
+    };
+
+    // Profile Picture Logic
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+        mainProfilePic.src = storedImage;
+    }
+
+    // Fetch and display enrolled classes
+    if (classesContainer) {
+        fetchEnrolledClasses();
+    }
+
+    async function fetchEnrolledClasses() {
+        try {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('You are not authenticated. Please log in.');
+                window.location.href = 'SignIn.html';
+                return;
+            }
+
+            const response = await fetch('http://localhost:3000/api/class/enrolled-classes', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                const classes = result.classes;
+                displayClasses(classes);
+            } else {
+                alert(result.message || 'Error fetching classes. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error fetching enrolled classes:', error);
+            alert('Error fetching classes. Please try again later.');
+        }
+    }
+
+    function displayClasses(classes) {
+        classesContainer.innerHTML = ''; // Clear existing content
+
+        if (classes.length === 0) {
+            classesContainer.innerHTML = '<p>No upcoming classes.</p>';
+            return;
+        }
+
+        classes.forEach(cls => {
+            const classItem = document.createElement('div');
+            classItem.classList.add('class-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
+
+            // Calculate time until class starts
+            const classDate = new Date(cls.date);
+            const startTimeParts = cls.startTime.split(':');
+            classDate.setHours(startTimeParts[0], startTimeParts[1]);
+
+            const now = new Date();
+            let timeUntilClass = '';
+            if (classDate > now) {
+                const diffMs = classDate - now;
+                const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+                const diffHours = Math.floor((diffMs / (60 * 60 * 1000)) % 24);
+                const diffMinutes = Math.floor((diffMs / (60 * 1000)) % 60);
+
+                if (diffDays > 0) {
+                    timeUntilClass = `In ${diffDays} day(s)`;
+                } else if (diffHours > 0) {
+                    timeUntilClass = `In ${diffHours} hour(s)`;
+                } else if (diffMinutes > 0) {
+                    timeUntilClass = `In ${diffMinutes} minute(s)`;
+                } else {
+                    timeUntilClass = 'Starting soon';
+                }
+            } else {
+                timeUntilClass = 'Class has started';
+            }
+
+            const imageFileName = subjectImageMap[cls.subject] || 'default.png';
+
+        classItem.innerHTML = `
+            <div class="d-flex align-items-center">
+                <img src="src/${imageFileName}" alt="${cls.subject}" class="class-img">
+                <div>
+                    <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
+                    <p>${timeUntilClass}</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary btn-attend" data-class-id="${cls._id}">Attend</button>
+        `;
+
+        classesContainer.appendChild(classItem);
+    });
+
+        // Add event listeners to "Attend" buttons
+        document.querySelectorAll('.btn-attend').forEach(button => {
+            button.addEventListener('click', function() {
+                const classId = this.getAttribute('data-class-id');
+                // Implement the logic to attend the class
+                alert(`Attending class with ID: ${classId}`);
+                // Redirect or open the class link if available
+            });
+        });
+    }
+});
+
 
 
     

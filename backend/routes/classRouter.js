@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createClass, getTutors, getClassesByTutorId, enrollInClass, getEnrolledStudents, getMyClasses } = require('../controller/classController');
+const { createClass, getTutors, getClassesByTutorId, enrollInClass, getEnrolledStudents, getMyClasses, getEnrolledClassesForStudent, updateClass, deleteClass, getClassById } = require('../controller/classController');
 const authMiddleware = require('../middleware/auth');
 
 // Create a class (Tutor only)
@@ -19,5 +19,19 @@ router.post('/enroll/:classId', authMiddleware.authenticateToken, enrollInClass)
 
 // Get enrolled students for a class (Tutor only)
 router.get('/class/:classId/students', authMiddleware.authenticateToken, getEnrolledStudents);
+
+router.get('/enrolled-classes', authMiddleware.authenticateToken, getEnrolledClassesForStudent);
+
+// Update a class (Tutor only)
+router.put('/:classId', authMiddleware.authenticateToken, updateClass);
+
+// Delete a class (Tutor only)
+router.delete('/:classId', authMiddleware.authenticateToken, deleteClass);
+
+// Get class details by ID (Tutor only)
+router.get('/:classId', authMiddleware.authenticateToken, getClassById);
+
+
+
 
 module.exports = router;
