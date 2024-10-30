@@ -123,13 +123,10 @@
         <div class="form-section">
             <form action="#" method="post" onsubmit="sendMessage(event)">
                 <label for="class">Select Class:</label>
-                <select id="classDropdown" name="class">
+                <select id="classDropdown" name="class" required>
                     <option value="">--Select Class--</option>
-                    <option value="math">Mathematics</option>
-                    <option value="science">Science</option>
-                    <option value="english">English</option>
-                    <option value="history">History</option>
-                </select>
+                    <!-- Options will be populated dynamically -->
+                  </select>
                 
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" placeholder="Enter your message here..."></textarea>
@@ -153,6 +150,7 @@
             document.getElementById("message").value = "";
         }
     </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
 

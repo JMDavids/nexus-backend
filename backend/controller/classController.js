@@ -70,9 +70,6 @@ exports.getMyClasses = async (req, res) => {
         const tutorId = req.user.userId;
         const role = req.user.role;
 
-        if (role !== 'tutor') {
-            return res.status(403).json({ message: 'Access denied. Only tutors can view their classes.' });
-        }
 
         // Fetch classes for the authenticated tutor
         const classes = await Class.find({ tutor: tutorId });

@@ -238,78 +238,82 @@ document.addEventListener('DOMContentLoaded', function() {
             // Do not pre-fill the password field for security reasons
         } else {
             // User is not logged in, redirect to login page
-            window.location.href = 'SignIn.html';
-        }
-    }
-});
-
-/*
-settingsForm.addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    // Get the updated values from the form
-    const updatedUsername = document.getElementById('username').value.trim();
-    const updatedEmail = document.getElementById('email').value.trim();
-    const updatedPassword = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    // Prepare the data to send to the server
-    const updatedData = {};
-    if (updatedUsername) updatedData.username = updatedUsername;
-    if (updatedEmail) updatedData.email = updatedEmail;
-    if (updatedPassword) updatedData.password = updatedPassword;
-
-    // Validate password confirmation
-    if (updatedPassword || confirmPassword) {
-        if (updatedPassword !== confirmPassword) {
-            alert('Passwords do not match. Please try again.');
-            return;
-        }
-        
-        updatedData.password = updatedPassword;
-    }
-
-    try {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            alert('You are not authenticated. Please log in.');
-            window.location.href = 'SignIn.html';
-            return;
+            //window.location.href = 'SignIn.html';
         }
 
-        // Make API call to update user settings
-        const response = await fetch('http://localhost:3000/api/user/settings', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(updatedData)
+        // Add event listener to form submit within the if block to ensure settingsForm is defined
+        settingsForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Get the updated values from the form
+            const updatedUsername = document.getElementById('username').value.trim();
+            const updatedEmail = document.getElementById('email').value.trim();
+            const updatedPassword = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Prepare the data to send to the server
+            const updatedData = {};
+            if (updatedUsername) updatedData.username = updatedUsername;
+            if (updatedEmail) updatedData.email = updatedEmail;
+
+            // Validate password confirmation
+            if (updatedPassword || confirmPassword) {
+                if (updatedPassword !== confirmPassword) {
+                    alert('Passwords do not match. Please try again.');
+                    return;
+                }
+
+                updatedData.password = updatedPassword;
+            }
+
+            try {
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    alert('You are not authenticated. Please log in.');
+                    window.location.href = 'SignIn.html';
+                    return;
+                }
+
+                // Make API call to update user settings
+                const response = await fetch('http://localhost:3000/api/user/settings', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Your settings have been updated successfully.');
+
+                    // Update user data in localStorage
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    if (updatedUsername) user.username = updatedUsername;
+                    if (updatedEmail) user.email = updatedEmail;
+                    // Do not store password in localStorage
+                    localStorage.setItem('user', JSON.stringify(user));
+
+                    // Optionally, redirect or refresh the page
+                    // location.reload();
+                } else {
+                    alert(result.message || 'Error updating settings. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating settings. Please try again later.');
+            }
         });
 
-        const result = await response.json();
-
-        if (response.ok) {
-            alert('Your settings have been updated successfully.');
-
-            // Update user data in localStorage
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (updatedUsername) user.username = updatedUsername;
-            if (updatedEmail) user.email = updatedEmail;
-            // Do not store password in localStorage
-            localStorage.setItem('user', JSON.stringify(user));
-
-            // Optionally, redirect or refresh the page
-            // location.reload();
-        } else {
-            alert(result.message || 'Error updating settings. Please try again.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error updating settings. Please try again later.');
+    } else {
+        // User is not logged in, redirect to login page
+        //window.location.href = 'SignIn.html';
     }
 });
-*/
+
+
 // scripts.js
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1040,6 +1044,108 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const classDropdown = document.getElementById('classDropdown');
+    const messageForm = document.querySelector('form');
+
+    // Fetch the tutor's classes and populate the dropdown
+    fetchTutorClasses();
+
+    async function fetchTutorClasses() {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          alert('You are not authenticated. Please log in.');
+          window.location.href = 'SignIn.html';
+          return;
+        }
+
+        const response = await fetch('http://localhost:3000/api/class/my-classes', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          const classes = result.classes;
+          populateClassDropdown(classes);
+        } else {
+          alert(result.message || 'Error fetching classes. Please try again.');
+        }
+      } catch (error) {
+        //console.error('Error fetching classes:', error);
+        //alert('Error fetching classes. Please try again later.');
+      }
+    }
+
+    function populateClassDropdown(classes) {
+      classes.forEach((cls) => {
+        const option = document.createElement('option');
+        option.value = cls._id;
+        option.textContent = `${cls.subject}: ${cls.title}`;
+        classDropdown.appendChild(option);
+      });
+    }
+
+    // Handle form submission
+    messageForm.addEventListener('submit', sendMessage);
+
+    async function sendMessage(event) {
+      event.preventDefault();
+
+      const classId = classDropdown.value;
+      const content = document.getElementById('message').value.trim();
+
+      if (!classId || !content) {
+        alert('Please select a class and enter a message.');
+        return;
+      }
+
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          alert('You are not authenticated. Please log in.');
+          window.location.href = 'SignIn.html';
+          return;
+        }
+
+        const response = await fetch('http://localhost:3000/api/messages/broadcast', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ classId, content }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Message sent successfully!');
+          // Optionally, reset the form
+          messageForm.reset();
+        } else {
+          alert(result.message || 'Error sending message. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+        alert('Error sending message. Please try again later.');
+      }
+    }
+
+    function cancel() {
+      messageForm.reset();
+    }
+
+    // Assign the cancel function to the cancel button
+    document.querySelector('button[type="button"]').addEventListener('click', cancel);
+  });
+
+
+
 
 
 

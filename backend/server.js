@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const userRoutes = require('./routes/userRouter');
 const classRoutes = require('./routes/classRouter');
+const messageRouter = require('./routes/messageRouter');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // API routes
 app.use('/api/user', userRoutes);
 app.use('/api/class', classRoutes);
+app.use('/api/messages', messageRouter);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../frontend/public')));

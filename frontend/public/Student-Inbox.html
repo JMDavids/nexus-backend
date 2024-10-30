@@ -94,51 +94,96 @@
        
 
         <!-- Message List Section -->
-        <div class="message-list">
-            <div class="message-item">
-                <div class="message-text">
-                    <!-- Example on how message should look -->
-                    <strong>Mason John</strong>
-                    <p>Hey there, I'm interested in joining your next lesson. I need assistance with Life Sciences.</p>
-                </div>
-                <span class="time">15:47</span>
-            </div>
+        <div class="message-list" id="messagesContainer">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
             
         </div>
     </div>
     <script>
-        // Mock function to simulate receiving a message from the tutor
-        function receiveMessage(sender, messageContent) {
-            const messageList = document.getElementById('messageList');
-            
-            // Create a new message item
-            const messageItem = document.createElement('div');
-            messageItem.classList.add('message-item');
-            
-            // Message text content
-            const messageText = document.createElement('div');
-            messageText.classList.add('message-text');
-            messageText.innerHTML = `<strong>${sender}</strong><p>${messageContent}</p>`;
-            
-            // Timestamp
-            const timeStamp = document.createElement('span');
-            timeStamp.classList.add('time');
-            const now = new Date();
-            timeStamp.textContent = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
-            
-            // Append message text and timestamp to message item
-            messageItem.appendChild(messageText);
-            messageItem.appendChild(timeStamp);
-            
-            // Add message item to the message list
-            messageList.appendChild(messageItem);
+       document.addEventListener('DOMContentLoaded', function () {
+    const path = window.location.pathname;
+
+    if (path.endsWith('/Student-Inbox.html') || path.endsWith('/Student-Inbox')) {
+        const messagesContainer = document.getElementById('messagesContainer');
+
+        fetchMessages();
+
+        async function fetchMessages() {
+            try {
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    alert('You are not authenticated. Please log in.');
+                    window.location.href = 'SignIn.html';
+                    return;
+                }
+
+                const response = await fetch('http://localhost:3000/api/messages/inbox', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    const messages = result.messages;
+                    displayMessages(messages);
+                } else {
+                    alert(result.message || 'Error fetching messages. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+                alert('Error fetching messages. Please try again later.');
+            }
         }
 
-        // Example of receiving a message from the tutor
-        setTimeout(() => {
-            receiveMessage('Tutor James', 'Please remember to complete your assignment for next week.');
-        }, 2000);
+        function displayMessages(messages) {
+            messagesContainer.innerHTML = '';
+
+            if (messages.length === 0) {
+                messagesContainer.innerHTML = '<p>No messages.</p>';
+                return;
+            }
+
+            messages.forEach((msg) => {
+                const messageItem = document.createElement('div');
+                messageItem.classList.add('message-item');
+
+                const messageText = document.createElement('div');
+                messageText.classList.add('message-text');
+
+                // Sender's Name
+                const senderName = document.createElement('strong');
+                senderName.textContent = `From: ${msg.sender.firstName} ${msg.sender.lastName}`;
+
+                // Class Information
+                const classInfo = document.createElement('em');
+                classInfo.textContent = `Class: ${msg.classId.subject} - ${msg.classId.title}`;
+
+                const messageContent = document.createElement('p');
+                messageContent.textContent = msg.content;
+
+                const timeSpan = document.createElement('span');
+                timeSpan.classList.add('time');
+                timeSpan.textContent = new Date(msg.sentAt).toLocaleString();
+
+                // Append elements
+                messageText.appendChild(senderName);
+                messageText.appendChild(document.createElement('br'));
+                messageText.appendChild(classInfo);
+                messageText.appendChild(document.createElement('br'));
+                messageText.appendChild(messageContent);
+
+                messageItem.appendChild(messageText);
+                messageItem.appendChild(timeSpan);
+                messagesContainer.appendChild(messageItem);
+            });
+        }
+    }
+});
     </script>
+
 </body>
 </html>
 
