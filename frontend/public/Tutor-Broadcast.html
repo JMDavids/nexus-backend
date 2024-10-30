@@ -140,9 +140,21 @@
     </div>
 
     <script>
-        function sendMessage(event) {
-            event.preventDefault();
-            alert("Message successfully sent!");
+        //sendMessage
+         function sendMessage() {
+            const selectedClass = document.getElementById('classDropdown').value;
+            const messageContent = document.getElementById('message').value;
+
+            if (selectedClass && messageContent) {
+                // Store message in localStorage as an array of messages
+                const messages = JSON.parse(localStorage.getItem('tutorMessages')) || [];
+                messages.push({ class: selectedClass, message: messageContent, timestamp: new Date().toLocaleTimeString() });
+                localStorage.setItem('tutorMessages', JSON.stringify(messages));
+                
+                alert("Message successfully sent!");
+            } else {
+                alert("Please select a class and enter a message.");
+            }
         }
 
         function cancel() {
