@@ -19,6 +19,10 @@
                     <button class="button">Change Profile Picture</button>
                 </a>
             </div>
+            <div class="streak-container">
+                <i class="fas fa-fire flame-icon"></i>
+                <span id="streakCount">3 Day Streak</span>
+            </div>
             <a href="index.html"><i class="fas fa-home"></i> Home</a>
             <a href="Classes.html"><i class="fas fa-book"></i> Classes</a>
             <a href="Resources.html"><i class="fas fa-folder"></i> Resources</a>
@@ -65,6 +69,13 @@
                 mainProfilePic.src = storedImage;
             }
         });
+        // Example: Dynamically setting the streak count
+document.addEventListener('DOMContentLoaded', function() {
+    const streakCountElement = document.getElementById('streakCount');
+    let streakDays = 3; // This can be dynamically fetched from a database or API
+    streakCountElement.textContent = `${streakDays} Day Streak`;
+});
+
     </script>
 </body>
 </html>

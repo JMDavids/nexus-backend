@@ -262,3 +262,18 @@ header {
 .btn:hover {
     background-color: #555;
 }
+
+/* Streak Styles */
+.streak-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ff4500; /* Flame color */
+}
+
+.flame-icon {
+    font-size: 20px;
+    margin-right: 5px;
+}
