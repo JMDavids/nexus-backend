@@ -38,21 +38,29 @@
                 </div>
             </div>
             <div class="row">
-                  <!-- Calendar Section -->
-                  <div class="col-md-6">
-                    <h5>Google Calendar</h5>
-                    <iframe src="https://calendar.google.com/calendar/embed?src=e6fb19f091c0bf3dcc0ccc625effb20acd875f9777e89e86eb796a769adbf894%40group.calendar.google.com&ctz=Africa%2FJohannesburg" 
-                            style="border: 0" 
-                            width="100%" 
-                            height="400" 
-                            frameborder="0" 
-                            scrolling="no"></iframe>
+                <div class="calendar-container">
+                    <header>
+                        <button id="prev-month" class="nav-btn">&#9664;</button>
+                        <h2 id="month-year"></h2>
+                        <button id="next-month" class="nav-btn">&#9654;</button>
+                    </header>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sun</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendar-body">
+                            <!-- Calendar dates will be dynamically generated here -->
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col-md-6">
-                    <h5>UPCOMING CLASSES</h5>
-                    <div id="classesContainer" class="upcoming-classes">
-                        <!-- Classes will be loaded here dynamically -->
-                    </div>
                         
     <script src="scripts.js">
          </script>

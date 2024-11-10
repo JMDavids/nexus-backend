@@ -1144,7 +1144,75 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('button[type="button"]').addEventListener('click', cancel);
   });
 
+// calander 
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
 
+const prevBtn = document.getElementById('prev-month');
+const nextBtn = document.getElementById('next-month');
+const monthYearDisplay = document.getElementById('month-year');
+const calendarBody = document.getElementById('calendar-body');
+
+let currentDate = new Date();
+
+function renderCalendar(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+
+    // Clear previous calendar
+    calendarBody.innerHTML = '';
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    let row = document.createElement('tr');
+
+    // Create empty cells for days of the previous month
+    for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('td');
+        row.appendChild(emptyCell);
+    }
+
+    // Fill in the days of the current month
+    for (let day = 1; day <= daysInMonth; day++) {
+        if (row.children.length === 7) {
+            calendarBody.appendChild(row);
+            row = document.createElement('tr');
+        }
+
+        const cell = document.createElement('td');
+        cell.textContent = day;
+
+        // Highlight the current day
+        const isToday = day === new Date().getDate() &&
+                        month === new Date().getMonth() &&
+                        year === new Date().getFullYear();
+        if (isToday) {
+            cell.classList.add('current-day');
+        }
+
+        row.appendChild(cell);
+    }
+
+    calendarBody.appendChild(row);
+}
+
+prevBtn.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar(currentDate);
+});
+
+nextBtn.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar(currentDate);
+});
+
+// Initialize the calendar with the current date
+renderCalendar(currentDate);
 
 
 
