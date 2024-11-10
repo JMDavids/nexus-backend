@@ -319,3 +319,13 @@ td.current-day {
 td:hover {
     background-color: #f0f0f0;
 }
+.class-day {
+    background-color: #ffd700; /* Highlight color */
+    cursor: pointer;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+}
+.class-day:hover {
+    background-color: #ffa500; /* Darker highlight on hover */
+}
