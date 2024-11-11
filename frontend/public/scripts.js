@@ -874,7 +874,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fetchEnrolledStudents(classId);
     }
-    
 
     async function fetchEnrolledStudents(classId) {
         try {
@@ -946,14 +945,11 @@ document.addEventListener('DOMContentLoaded', function() {
         mainProfilePic.src = storedImage;
     }
 
-   
-    let enrolledClasses = [];
-
     // Fetch and display enrolled classes
     if (classesContainer) {
         fetchEnrolledClasses();
     }
-    
+
     async function fetchEnrolledClasses() {
         try {
             const token = localStorage.getItem('authToken');
@@ -973,8 +969,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 const classes = result.classes;
-                displayClasses(enrolledClasses);
-                renderCalendar(currentDate); // Re-render calendar with class dates
+                displayClasses(classes);
             } else {
                 alert(result.message || 'Error fetching classes. Please try again.');
             }
@@ -1200,43 +1195,24 @@ function renderCalendar(date) {
             cell.classList.add('current-day');
         }
 
-         // Check if there are classes on this day
-         const classOnThisDay = enrolledClasses.find(cls => {
-            const classDate = new Date(cls.date);
-            return classDate.getDate() === day &&
-                   classDate.getMonth() === month &&
-                   classDate.getFullYear() === year;
-        });
-
-        if (classOnThisDay) {
-            cell.classList.add('class-day'); // Add a special class for styling
-            cell.title = `${classOnThisDay.subject}: ${classOnThisDay.title}`; // Tooltip with class details
-
-            // Optional: Add click functionality to show class details
-            cell.addEventListener('click', () => {
-                alert(`Class: ${classOnThisDay.subject}\nTitle: ${classOnThisDay.title}\nTime: ${classOnThisDay.startTime}`);
-            });
-        }
-
         row.appendChild(cell);
     }
 
     calendarBody.appendChild(row);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    fetchEnrolledClasses(); // This will also trigger renderCalendar
-
-    prevBtn.addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        renderCalendar(currentDate);
-    });
-
-    nextBtn.addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        renderCalendar(currentDate);
-    });
+prevBtn.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar(currentDate);
 });
+
+nextBtn.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar(currentDate);
+});
+
+// Initialize the calendar with the current date
+renderCalendar(currentDate);
 
 
 
