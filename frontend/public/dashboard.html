@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edmate Dashboard</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+    }
+
+    .dashboard {
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 20%;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      padding: 20px;
+      height: 100vh;
+    }
+
+    .sidebar h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 15px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .upgrade-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .upgrade-btn:hover {
+      background: #45a049;
+    }
+
+    /* Main Content */
+    main {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+    }
+
+    .header p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* Assignments Section */
+    .assignments h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .assignments ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .assignments li {
+      margin-bottom: 20px;
+    }
+
+    .assignments progress {
+      width: 100%;
+      height: 10px;
+      margin: 5px 0;
+    }
+
+    /* Events Section */
+    .events h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .event-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .event {
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    /* Analytics Section */
+    .analytics h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .analytics-chart {
+      display: flex;
+      gap: 10px;
+    }
+
+    .bar {
+      width: 20px;
+      background: #4CAF50;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Edmate</h2>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Students</a></li>
+        <li><a href="#">Assignments</a></li>
+        <li><a href="#">Mentors</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">Analytics</a></li>
+        <li><a href="#">Library</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+      <button class="upgrade-btn">Upgrade Now</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Header -->
+      <header class="header">
+        <h1>Hello, Mohib!</h1>
+        <p>Set your study plan and grow with community</p>
+      </header>
+
+      <!-- Assignments Section -->
+      <section class="assignments">
+        <h2>Your Assignments</h2>
+        <ul>
+          <li>
+            <p>Design Accessibility</p>
+            <progress value="32" max="100"></progress>
+            <span>In Progress</span>
+          </li>
+          <li>
+            <p>Figma for Beginners</p>
+            <progress value="50" max="100"></progress>
+            <span>In Progress</span>
+          </li>
+          <li>
+            <p>Framer Design</p>
+            <progress value="72" max="100"></progress>
+            <span>In Progress</span>
+          </li>
+          <li>
+            <p>Frontend Development</p>
+            <progress value="100" max="100"></progress>
+            <span>Completed</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Upcoming Events Section -->
+      <section class="events">
+        <h2>Upcoming Events</h2>
+        <div class="event-list">
+          <div class="event"><span>Design Discussion</span></div>
+          <div class="event"><span>Marketing Hackathon</span></div>
+          <div class="event"><span>Webflow Meetup</span></div>
+          <div class="event"><span>AI Revolution</span></div>
+          <div class="event"><span>Content Creation</span></div>
+        </div>
+      </section>
+
+      <!-- Analytics Section -->
+      <section class="analytics">
+        <h2>Hour Spent</h2>
+        <div class="analytics-chart">
+          <div class="bar" style="height: 60%;"></div>
+          <div class="bar" style="height: 40%;"></div>
+          <div class="bar" style="height: 20%;"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
