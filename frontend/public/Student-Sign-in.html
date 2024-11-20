@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
+<style>
+    body {
+        background-image: url(Learn-today.png); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+</style>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 15px;">
@@ -20,7 +29,12 @@
                     <input type="password" class="form-control" placeholder="Password" required>
                 </div>
                 <input type="hidden" name="role" value="student">
-                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                <button 
+                type="submit" 
+                class="btn btn-primary btn-block" 
+                style="background-color: #d94818; border-color: #d94818; color: #fff;">
+               Sign in
+            </button>
                 <div class="text-center mt-3">
                     <a href="ForgotPassword.html">Forgot your password?</a>
                 </div>
