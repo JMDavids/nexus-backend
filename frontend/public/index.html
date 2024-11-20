@@ -40,7 +40,7 @@
                                 <a href="#about">What We Offer</a>
                             </li>
                             <li>
-                                <a href="Become-Tutor-SignUp.html">Become a Tutor</a>
+                                <li><a href="#" class="external-link" id="becomeTutorLink">Become a Tutor</a></li>
                             </li>
                             <li>
                                 <a href="">Get In Touch</a>
@@ -180,6 +180,13 @@
 <script src="js/images-loaded.min.js"></script>
 <script src="js/lightbox.min.js"></script>
 <script src="js/site.js"></script>
+
+<script>
+    document.getElementById('becomeTutorLink').addEventListener('click', function(event) {
+      event.preventDefault();
+      window.location.href = 'Become-Tutor-SignUp.html';
+    });
+  </script>
 
 </body>
 </html>

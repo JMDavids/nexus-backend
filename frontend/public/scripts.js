@@ -314,8 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// scripts.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const createClassForm = document.getElementById('createClassForm');
     if (createClassForm) {
