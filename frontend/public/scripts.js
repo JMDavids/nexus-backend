@@ -608,27 +608,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Fetch classes by tutor
         fetch(`http://localhost:3000/api/class/tutor/${tutorId}/classes`)
-            .then(response => response.json())
-            .then(data => {
-                let classes = data.classes;
-                displayClasses(classes);
+    .then(response => response.json())
+    .then(data => {
+        let classes = data.classes;
 
-                // Add search functionality
-                if (classSearchBar) {
-                    classSearchBar.addEventListener('input', function() {
-                        const searchTerm = classSearchBar.value.toLowerCase();
-                        const filteredClasses = classes.filter(cls =>
-                            cls.title.toLowerCase().includes(searchTerm) ||
-                            cls.subject.toLowerCase().includes(searchTerm)
-                        );
-                        displayClasses(filteredClasses);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching classes:', error);
-                alert('Error fetching classes. Please try again later.');
+        // Filter out past classes
+        const now = new Date();
+        classes = classes.filter(cls => {
+            const classDateTime = getClassDateTime(cls.date, cls.startTime);
+            return classDateTime >= now;
+        });
+
+        displayClasses(classes);
+
+        // Add search functionality
+        if (classSearchBar) {
+            classSearchBar.addEventListener('input', function() {
+                const searchTerm = classSearchBar.value.toLowerCase();
+                const filteredClasses = classes.filter(cls =>
+                    cls.title.toLowerCase().includes(searchTerm) ||
+                    cls.subject.toLowerCase().includes(searchTerm)
+                );
+                displayClasses(filteredClasses);
             });
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching classes:', error);
+        alert('Error fetching classes. Please try again later.');
+    });
+    }
+
+    function getClassDateTime(classDateStr, startTimeStr) {
+        const classDate = new Date(classDateStr);
+        const [hours, minutes] = startTimeStr.split(':').map(Number);
+        classDate.setHours(hours, minutes, 0, 0);
+        return classDate;
     }
 
     function displayClasses(classes) {
@@ -695,6 +710,96 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function generateCalendar(classes) {
+    const calendarBody = document.getElementById('calendar-body');
+    const monthYear = document.getElementById('month-year');
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    function renderCalendar(month, year) {
+        // Clear previous cells
+        calendarBody.innerHTML = '';
+
+        // Set month-year heading
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        monthYear.textContent = `${months[month]} ${year}`;
+
+        // Get first day of the month
+        const firstDay = new Date(year, month).getDay();
+
+        // Number of days in month
+        const daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+        let date = 1;
+
+        // Create 6 rows for the calendar
+        for (let i = 0; i < 6; i++) {
+            let row = document.createElement('tr');
+
+            // Create 7 columns for each day of the week
+            for (let j = 0; j < 7; j++) {
+                let cell = document.createElement('td');
+
+                if (i === 0 && j < firstDay) {
+                    // Empty cells before the first day
+                    cell.innerHTML = '';
+                } else if (date > daysInMonth) {
+                    // Stop creating cells after the last day
+                    break;
+                } else {
+                    cell.innerHTML = date;
+
+                    // Check if there's a class on this date
+                    const classOnDate = classes.find(cls => {
+                        const classDate = new Date(cls.date);
+                        return classDate.getDate() === date &&
+                            classDate.getMonth() === month &&
+                            classDate.getFullYear() === year;
+                    });
+
+                    if (classOnDate) {
+                        cell.classList.add('class-date');
+                        cell.title = `${classOnDate.subject} - ${classOnDate.title}`;
+                    }
+
+                    date++;
+                }
+
+                row.appendChild(cell);
+            }
+
+            calendarBody.appendChild(row);
+        }
+    }
+
+    // Initial render
+    renderCalendar(currentMonth, currentYear);
+
+    // Event listeners for navigation buttons
+    document.getElementById('prev-month').addEventListener('click', function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar(currentMonth, currentYear);
+    });
+
+    document.getElementById('next-month').addEventListener('click', function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar(currentMonth, currentYear);
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const classesContainer = document.getElementById('classesContainer');
     const mainProfilePic = document.getElementById('mainProfilePic1');
@@ -742,58 +847,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 const classes = result.classes;
-                displayClasses(classes);
+                // Separate classes into upcoming and past
+                const now = new Date();
+                const upcomingClasses = [];
+                const pastClasses = [];
+                classes.forEach(cls => {
+                    const classDate = new Date(cls.date);
+                    if (classDate >= now) {
+                        upcomingClasses.push(cls);
+                    } else {
+                        pastClasses.push(cls);
+                    }
+                });
+
+                displayClasses(upcomingClasses);
+                displayPastClasses(pastClasses);
+                generateCalendar(upcomingClasses);
             } else {
                 alert(result.message || 'Error fetching classes. Please try again.');
             }
         } catch (error) {
-            //console.error('Error fetching classes:', error);
-            //alert('Error fetching classes. Please try again later.');
+            console.error('Error fetching classes:', error);
+            alert('Error fetching classes. Please try again later.');
         }
     }
 
     function displayClasses(classes) {
-        classesContainer.innerHTML = ''; // Clear existing content
+    classesContainer.innerHTML = ''; // Clear existing content
 
-        if (classes.length === 0) {
-            classesContainer.innerHTML = '<p>No upcoming classes.</p>';
+    if (classes.length === 0) {
+        classesContainer.innerHTML = '<p>No upcoming classes.</p>';
+        return;
+    }
+
+    classes.forEach(cls => {
+        console.log('Class object:', cls); // Log the class object
+        console.log('Class ID:', cls._id);
+
+        const classId = cls._id || cls.id;
+
+        if (!classId) {
+            console.error('Class ID is undefined for class:', cls);
             return;
         }
 
-        classes.forEach(cls => {
-            console.log('Class object:', cls); // Log the class object
-            console.log('Class ID:', cls._id);
-
-            const classId = cls._id || cls.id;
-
-            if (!classId) {
-                console.error('Class ID is undefined for class:', cls);
-                return;
-            }
-
-            const classItem = document.createElement('div');
-            classItem.classList.add('class-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
-        
-            // Get the image file name from the mapping
-            const imageFileName = subjectImageMap[cls.subject] || 'default.png';
-        
-            classItem.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <img src="src/${imageFileName}" alt="${cls.subject} Class" class="class-img">
-                    <div>
-                        <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
-                        <p>Date: ${new Date(cls.date).toLocaleDateString()}<br>Students: ${cls.studentsEnrolled.length}</p>
-                    </div>
+        const classItem = document.createElement('div');
+        classItem.classList.add('class-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
+    
+        // Get the image file name from the mapping
+        const imageFileName = subjectImageMap[cls.subject] || 'default.png';
+    
+        classItem.innerHTML = `
+            <div class="d-flex align-items-center">
+                <img src="src/${imageFileName}" alt="${cls.subject} Class" class="class-img">
+                <div>
+                    <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
+                    <p>Date: ${new Date(cls.date).toLocaleDateString()}<br>Students: ${cls.studentsEnrolled.length}</p>
                 </div>
-                <div class="d-flex">
-                    <button class="btn btn-primary btn-view-students mr-2" data-class-id="${cls._id}">View Students</button>
-                    <button class="btn btn-dark btn-edit-class mr-2" data-class-id="${cls._id}">Edit</button>
-                    <button class="btn btn-danger btn-cancel-class" data-class-id="${cls._id}">Cancel</button>
-                </div>
-            `;
-        
-            classesContainer.appendChild(classItem);
-        });
+            </div>
+            <div class="d-flex">
+                <button class="btn btn-primary btn-view-students mr-2" data-class-id="${classId}">View Students</button>
+                <button class="btn btn-dark btn-edit-class mr-2" data-class-id="${classId}">Edit</button>
+                <button class="btn btn-danger btn-cancel-class" data-class-id="${classId}">Cancel</button>
+            </div>
+        `;
+    
+        classesContainer.appendChild(classItem);
+    });
 
         // Add event listeners
         document.querySelectorAll('.btn-view-students').forEach(button => {
@@ -865,6 +985,55 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error cancelling class. Please try again later.');
         }
     }
+
+    function displayPastClasses(classes) {
+        pastClassesContainer.innerHTML = ''; // Clear existing content
+    
+        if (classes.length === 0) {
+            pastClassesContainer.innerHTML = '<p>No past classes.</p>';
+            return;
+        }
+    
+        classes.forEach(cls => {
+            const classId = cls._id || cls.id;
+    
+            if (!classId) {
+                console.error('Class ID is undefined for class:', cls);
+                return;
+            }
+    
+            const classItem = document.createElement('div');
+            classItem.classList.add('class-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
+    
+            // Get the image file name from the mapping
+            const imageFileName = subjectImageMap[cls.subject] || 'default.png';
+    
+            classItem.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <img src="src/${imageFileName}" alt="${cls.subject} Class" class="class-img">
+                    <div>
+                        <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
+                        <p>Date: ${new Date(cls.date).toLocaleDateString()}<br>Students: ${cls.studentsEnrolled.length}</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <button class="btn btn-primary btn-view-students mr-2" data-class-id="${classId}">View Students</button>
+                    <!-- Optionally, you can include a button to view class details -->
+                </div>
+            `;
+    
+            pastClassesContainer.appendChild(classItem);
+        });
+    
+        // Add event listeners
+        document.querySelectorAll('.btn-view-students').forEach(button => {
+            button.addEventListener('click', function() {
+                const classId = this.getAttribute('data-class-id');
+                window.location.href = `tutor-class-students.html?classId=${classId}`;
+            });
+        });
+    }
+    
 
     // Fetch and display classes on page load
     fetchTutorClasses();
@@ -970,18 +1139,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'SignIn.html';
                 return;
             }
-
+    
             const response = await fetch('http://localhost:3000/api/class/enrolled-classes', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-
+    
             const result = await response.json();
-
+    
             if (response.ok) {
-                const classes = result.classes;
+                let classes = result.classes;
+    
+                // Filter out past classes
+                const now = new Date();
+                classes = classes.filter(cls => {
+                    // Combine class date and start time
+                    const classDateTime = getClassDateTime(cls.date, cls.startTime);
+                    return classDateTime >= now;
+                });
+    
                 displayClasses(classes);
+                generateCalendar(classes);
             } else {
                 alert(result.message || 'Error fetching classes. Please try again.');
             }
@@ -991,60 +1170,162 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function getClassDateTime(classDateStr, startTimeStr) {
+        const classDate = new Date(classDateStr);
+        const [hours, minutes] = startTimeStr.split(':').map(Number);
+        classDate.setHours(hours, minutes, 0, 0);
+        return classDate;
+    }
+    
+    function generateCalendar(classes) {
+        const calendarBody = document.getElementById('calendar-body');
+        const monthYear = document.getElementById('month-year');
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+    
+        function renderCalendar(month, year) {
+            // Clear previous cells
+            calendarBody.innerHTML = '';
+    
+            // Set month-year heading
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            monthYear.textContent = `${months[month]} ${year}`;
+    
+            // Get first day of the month
+            const firstDay = new Date(year, month).getDay();
+    
+            // Number of days in month
+            const daysInMonth = 32 - new Date(year, month, 32).getDate();
+    
+            let date = 1;
+    
+            // Create 6 rows for the calendar
+            for (let i = 0; i < 6; i++) {
+                let row = document.createElement('tr');
+    
+                // Create 7 columns for each day of the week
+                for (let j = 0; j < 7; j++) {
+                    let cell = document.createElement('td');
+                    cell.classList.add('text-center', 'align-middle');
+                    cell.style.height = '80px';
+                    cell.style.verticalAlign = 'middle';
+    
+                    if (i === 0 && j < firstDay) {
+                        // Empty cells before the first day
+                        cell.innerHTML = '';
+                    } else if (date > daysInMonth) {
+                        // Stop creating cells after the last day
+                        break;
+                    } else {
+                        cell.innerHTML = `<span>${date}</span>`;
+    
+                        // Check if there's a class on this date
+                        const classesOnDate = classes.filter(cls => {
+                            const classDateTime = getClassDateTime(cls.date, cls.startTime);
+                            return classDateTime.getDate() === date &&
+                                classDateTime.getMonth() === month &&
+                                classDateTime.getFullYear() === year;
+                        });
+    
+                        if (classesOnDate.length > 0) {
+                            cell.classList.add('class-date');
+                            cell.title = classesOnDate.map(cls => `${cls.subject} - ${cls.title}`).join('\n');
+    
+                            // Add click event to show class details
+                            cell.addEventListener('click', function() {
+                                const classDetails = classesOnDate.map(cls =>
+                                    `Subject: ${cls.subject}\nTitle: ${cls.title}\nDate: ${new Date(cls.date).toLocaleDateString()} ${cls.startTime}`
+                                ).join('\n\n');
+                                alert(`Classes on ${date}/${month + 1}/${year}:\n\n${classDetails}`);
+                            });
+                        }
+    
+                        date++;
+                    }
+    
+                    row.appendChild(cell);
+                }
+    
+                calendarBody.appendChild(row);
+            }
+        }
+    
+        // Initial render
+        renderCalendar(currentMonth, currentYear);
+    
+        // Event listeners for navigation buttons
+        document.getElementById('prev-month').addEventListener('click', function() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+    
+        document.getElementById('next-month').addEventListener('click', function() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+    }
+    
+
     function displayClasses(classes) {
         classesContainer.innerHTML = ''; // Clear existing content
-
+    
         if (classes.length === 0) {
             classesContainer.innerHTML = '<p>No upcoming classes.</p>';
             return;
         }
-
+    
         classes.forEach(cls => {
             const classItem = document.createElement('div');
             classItem.classList.add('class-item', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-3');
-
+    
             // Calculate time until class starts
-            const classDate = new Date(cls.date);
-            const startTimeParts = cls.startTime.split(':');
-            classDate.setHours(startTimeParts[0], startTimeParts[1]);
-
+            const classDateTime = getClassDateTime(cls.date, cls.startTime);
             const now = new Date();
             let timeUntilClass = '';
-            if (classDate > now) {
-                const diffMs = classDate - now;
-                const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000));
-                const diffHours = Math.floor((diffMs / (60 * 60 * 1000)) % 24);
-                const diffMinutes = Math.floor((diffMs / (60 * 1000)) % 60);
-
-                if (diffDays > 0) {
-                    timeUntilClass = `In ${diffDays} day(s)`;
-                } else if (diffHours > 0) {
-                    timeUntilClass = `In ${diffHours} hour(s)`;
-                } else if (diffMinutes > 0) {
-                    timeUntilClass = `In ${diffMinutes} minute(s)`;
-                } else {
-                    timeUntilClass = 'Starting soon';
-                }
+    
+            const diffMs = classDateTime - now;
+            const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+            const diffHours = Math.floor((diffMs / (60 * 60 * 1000)) % 24);
+            const diffMinutes = Math.floor((diffMs / (60 * 1000)) % 60);
+    
+            if (diffDays > 0) {
+                timeUntilClass = `In ${diffDays} day(s)`;
+            } else if (diffHours > 0) {
+                timeUntilClass = `In ${diffHours} hour(s)`;
+            } else if (diffMinutes > 0) {
+                timeUntilClass = `In ${diffMinutes} minute(s)`;
             } else {
-                timeUntilClass = 'Class has started';
+                timeUntilClass = 'Starting soon';
             }
-
+    
             const imageFileName = subjectImageMap[cls.subject] || 'default.png';
-
-        classItem.innerHTML = `
-            <div class="d-flex align-items-center">
-                <img src="src/${imageFileName}" alt="${cls.subject}" class="class-img">
-                <div>
-                    <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
-                    <p>${timeUntilClass}</p>
+    
+            classItem.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <img src="src/${imageFileName}" alt="${cls.subject}" class="class-img">
+                    <div>
+                        <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
+                        <p>${timeUntilClass}</p>
+                    </div>
                 </div>
-            </div>
-            <button class="btn btn-secondary btn-attend" data-class-id="${cls._id}">Attend</button>
-        `;
-
-        classesContainer.appendChild(classItem);
-    });
-
+                <button class="btn btn-secondary btn-attend" data-class-id="${cls._id}">Attend</button>
+            `;
+    
+            classesContainer.appendChild(classItem);
+        });
+    
         // Add event listeners to "Attend" buttons
         document.querySelectorAll('.btn-attend').forEach(button => {
             button.addEventListener('click', function() {
@@ -1055,6 +1336,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
 });
 
   document.addEventListener('DOMContentLoaded', function () {
