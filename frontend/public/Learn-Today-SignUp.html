@@ -6,10 +6,19 @@
     <title>Create Account</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url(Learn-today.png); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 15px;">
+        <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 15px; background-color: rgba(255, 255, 255, 0.9);">
             <h2 class="text-center mb-4">Create account</h2>
             <p class="text-center">Already have an account? <a href="Student-Sign-in.html">Sign in</a></p>
             
@@ -29,7 +38,12 @@
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+                <button 
+                    type="submit" 
+                    class="btn btn-primary btn-block" 
+                    style="background-color: #d94818; border-color: #d94818; color: #fff;">
+                    Sign in
+                </button>
                 <div class="form-check mt-3">
                     <input type="checkbox" class="form-check-input" id="termsCheck" required>
                     <label class="form-check-label" for="termsCheck">
