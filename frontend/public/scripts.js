@@ -574,16 +574,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const classListElement = document.getElementById('classList');
     const tutorNameElement = document.getElementById('tutorName');
     const classSearchBar = document.getElementById('classSearchBar');
-    //const streakContainer = document.querySelector('.streaks-container span');
+    const streakContainer = document.querySelector('.streaks-container span');
 
-    //let currentStreak = parseInt(localStorage.getItem('streak')) || 0;
-
-    // Update the streak display
-    //function updateStreakDisplay() {
-        //streakContainer.textContent = `${currentStreak}-Day Streak`;
-    //}
-    //updateStreakDisplay();
-
+  
 
     if (classListElement) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -674,6 +667,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    let currentStreak = parseInt(localStorage.getItem('streak')) || 0;
+
+    //Update the streak display
+    function updateStreakDisplay() {
+        streakContainer.textContent = `${currentStreak}-Day Streak`;
+    }
+    updateStreakDisplay();
+
 
     async function enrollInClass(classId) {
         try {
@@ -697,9 +698,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Enrolled in class successfully.');
                 // Optionally, update UI to reflect enrollment
                 // Increment the streak
-                ///currentStreak++;
-                //localStorage.setItem('streak', currentStreak);
-                //updateStreakDisplay();
+                currentStreak++;
+                localStorage.setItem('streak', currentStreak);
+                updateStreakDisplay();
             } else {
                 alert(result.message || 'Error enrolling in class. Please try again.');
             }
