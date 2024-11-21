@@ -673,7 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Update the streak display
     function updateStreakDisplay() {
-        streakContainer.textContent = `${currentStreak}-Day Streak`;
+        streakContainer.textContent = `${currentStreak}-Day Streak, Keep the streak going! 🌟`;
     }
     updateStreakDisplay();
 

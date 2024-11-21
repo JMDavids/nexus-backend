@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (user.role === 'tutor') {
                                 window.location.href = 'tutor-dashboard.html';
                             } else if (user.role === 'student') {
-                                window.location.href = 'student-dashboard.html';
+                                window.location.href = 'dashboardstudent.html';
                             } else {
                                 alert('Unknown user role. Please contact support.');
                             }
