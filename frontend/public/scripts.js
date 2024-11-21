@@ -570,6 +570,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+////Streak implement here
 document.addEventListener('DOMContentLoaded', function() {
     const classListElement = document.getElementById('classList');
     const tutorNameElement = document.getElementById('tutorName');
