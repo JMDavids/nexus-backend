@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="student-dashboard-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        })
+        calendar.render()
+      })
+    </script>
+    <style>
+   
+    </style>
+  </head>  
+
+<body>
+   <div class="container">
+      <aside>
+         <div class="top">
+           <div class="logo">
+             <h2><span class="danger"></span> </h2>
+           </div>
+           <div class="close" id="close_btn">
+            <span class="material-symbols-sharp">
+              close
+              </span>
+           </div>
+         </div>
+         <!-- end top -->
+          <div class="sidebar">
+
+            <a href="#">
+              <span class="material-symbols-sharp">Home </span>
+              <h3>Dashbord</h3>
+           </a>
+           <a href="#">
+            <span class="material-symbols-outlined">
+              school
+              </span>
+              <h3>Classes</h3>
+           </a>
+           <a href="#">
+            <span class="material-symbols-outlined">
+              library_books
+              </span>
+              <h3>Resources</h3>
+           </a>
+           <a href="#">
+              <span class="material-symbols-sharp"><span class="material-symbols-outlined">
+                mode_heat
+                </span></span>
+              <h3>Badges</h3>
+           </a>
+           <a href="#">
+            <span class="material-symbols-outlined">
+              mail
+              </span>
+              <h3>Messages</h3>
+           </a>
+           <a href="#">
+              <span class="material-symbols-sharp">settings </span>
+              <h3>Settings</h3>
+           </a>
+           <a href="#">
+              <span class="material-symbols-sharp">logout </span>
+              <h3>logout</h3>
+           </a>
+          </div>
+      </aside> 
+      <main>
+           <h2>Welcome Back 👋</h2>
+           <i class="fas fa-fire" style="color: orange; font-size: 24px;"></i>  
+           Day-3, Keep the streak going! 🌟
+        <div class="insights">
+           <!--  streak section -->
+            <div class="streak-section">
+              <div class="middle">
+                <div class="update">
+                  <div class="profile-photo">
+                    <img src="achievement-svgrepo-com.svg" alt="" />
+                    <h3>Day 5 </h3>
+                    <p>Small steps, big results—keep going!</p>
+                  </div>
+                </div>
+              </div>              
+            </div>
+              <div class="streak-section">
+                <div class="middle">
+                  <div class="update">
+                    <div class="profile-photo">
+                      <img src="honor-svgrepo-com.svg" alt="" />
+                      <h3>Day 10 </h3>
+                      <p>You're on fire! Keep the streak alive!</p>
+                    </div>
+                  </div>
+                </div>              
+              </div>
+   
+               <div class="streak-section">
+                <div class="middle">
+                  <div class="update">
+                    <div class="profile-photo">
+                      <img src="rocket-svgrepo-com - Copy.svg" alt="" />
+                      <h3>Day 15 </h3>
+                      <p>Every day counts—stay unstoppable!</p>
+                    </div>
+                  </div>
+                </div>              
+              </div>
+        </div>
+        
+       <div class="recent_order">
+        <h2>Calendar </h2>
+        <div id='calendar'></div>
+      </div>
+  
+      </main>
+    
+    <div class="right">
+
+<div class="top">
+   <button id="menu_bar">
+     <span class="material-symbols-sharp">menu</span>
+   </button>
+   <div class="streaks-container">
+
+</div>
+   <div class="theme-toggler">
+     <span class="material-symbols-sharp active">light_mode</span>
+     <span class="material-symbols-sharp">dark_mode</span>
+   </div>
+    <div class="profile">
+       <div class="info">
+           <p><b>Jane Doe</b></p>
+           <p>Student</p>
+           <small class="text-muted"></small>
+       </div>
+       <div class="profile-photo">
+        <img id="profile-image" src="Untitled design (4)-modified.png" alt="Profile Picture" />
+        <input type="file" id="upload-profile-picture" accept="image/*" style="display: none;" />
+        <button id="change-profile-button">Change Picture</button>
+      </div>      
+    </div>
+</div>
+  <div class="recent_updates">
+     <h2>Upcoming Classes</h2>
+   <div class="updates">
+      <div class="update">
+         <div class="profile-photo">
+            <img src="lo.png" alt=""/>
+         </div>
+        <div class="message">
+          <b>Life Orientation</b>
+          <p>20 March</p>
+        </div>
+      </div>
+      <div class="update">
+        <div class="profile-photo">
+        <img src="hist.png" alt=""/>
+        </div>
+       <div class="message">
+         <b>History</b>
+         <p>19 March</p>
+       </div>
+     </div>
+     <div class="update">
+      <div class="profile-photo">
+         <img src="geo.png" alt=""/>
+      </div>
+     <div class="message">
+       <b>Geography</b>
+       <p>19 March</p>
+     </div>
+   </div>
+  </div>
+  </div>
+   <div class="sales-analytics">
+     <h2>Recommended</h2>
+      <div class="item onlion">
+        <div class="profile-photo">
+          <img src="phy.png" alt=""/>
+        </div>
+        <div class="right_text">
+          <div class="info">
+            <h3>Physical Science</h3>
+            <small class="text-muted">Book your lesson today!</small>
+          </div>
+        </div>
+      </div>
+      <div class="item onlion">
+        <div class="profile-photo">
+          <img src="eng.png" alt=""/>
+        </div>
+        <div class="right_text">
+          <div class="info">
+            <h3>English</h3>
+            <small class="text-muted">Book your lesson today!</small>
+          </div>        
+        </div>
+      </div>
+      <div class="item onlion">
+        <div class="profile-photo">
+          <img src="maths.png" alt=""/>
+        </div>
+        <div class="right_text">
+          <div class="info">
+            <h3>Mathematics</h3>
+            <small class="text-muted">Book your lesson today!</small>
+          </div>
+        </div>
+      </div>
+   </div>
+   <script src="student-dashboard.js"></script>
+</body>
+</html>
