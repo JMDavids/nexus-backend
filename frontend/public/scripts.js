@@ -574,15 +574,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const classListElement = document.getElementById('classList');
     const tutorNameElement = document.getElementById('tutorName');
     const classSearchBar = document.getElementById('classSearchBar');
-    //const streakContainer = document.querySelector('.streaks-container span');
-
-    //let currentStreak = parseInt(localStorage.getItem('streak')) || 0;
-
-    // Update the streak display
-    //function updateStreakDisplay() {
-        //streakContainer.textContent = `${currentStreak}-Day Streak`;
-    //}
-    //updateStreakDisplay();
+    const streakContainer = document.querySelector('.streaks-container span');
 
 
     if (classListElement) {
@@ -596,54 +588,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Fetch tutor's information
-        fetch(`http://localhost:3000/api/user/${tutorId}`)
+        fetch(http://localhost:3000/api/user/${tutorId})
             .then(response => response.json())
             .then(data => {
                 const tutor = data.user;
-                tutorNameElement.textContent = `Classes by ${tutor.firstName} ${tutor.lastName}`;
+                tutorNameElement.textContent = Classes by ${tutor.firstName} ${tutor.lastName};
             })
             .catch(error => {
                 console.error('Error fetching tutor info:', error);
             });
 
         // Fetch classes by tutor
-        fetch(`http://localhost:3000/api/class/tutor/${tutorId}/classes`)
-    .then(response => response.json())
-    .then(data => {
-        let classes = data.classes;
+        fetch(http://localhost:3000/api/class/tutor/${tutorId}/classes)
+            .then(response => response.json())
+            .then(data => {
+                let classes = data.classes;
+                displayClasses(classes);
 
-        // Filter out past classes
-        const now = new Date();
-        classes = classes.filter(cls => {
-            const classDateTime = getClassDateTime(cls.date, cls.startTime);
-            return classDateTime >= now;
-        });
-
-        displayClasses(classes);
-
-        // Add search functionality
-        if (classSearchBar) {
-            classSearchBar.addEventListener('input', function() {
-                const searchTerm = classSearchBar.value.toLowerCase();
-                const filteredClasses = classes.filter(cls =>
-                    cls.title.toLowerCase().includes(searchTerm) ||
-                    cls.subject.toLowerCase().includes(searchTerm)
-                );
-                displayClasses(filteredClasses);
+                // Add search functionality
+                if (classSearchBar) {
+                    classSearchBar.addEventListener('input', function() {
+                        const searchTerm = classSearchBar.value.toLowerCase();
+                        const filteredClasses = classes.filter(cls =>
+                            cls.title.toLowerCase().includes(searchTerm) ||
+                            cls.subject.toLowerCase().includes(searchTerm)
+                        );
+                        displayClasses(filteredClasses);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching classes:', error);
+                alert('Error fetching classes. Please try again later.');
             });
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching classes:', error);
-        alert('Error fetching classes. Please try again later.');
-    });
-    }
-
-    function getClassDateTime(classDateStr, startTimeStr) {
-        const classDate = new Date(classDateStr);
-        const [hours, minutes] = startTimeStr.split(':').map(Number);
-        classDate.setHours(hours, minutes, 0, 0);
-        return classDate;
     }
 
     function displayClasses(classes) {
@@ -652,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const classItem = document.createElement('div');
             classItem.classList.add('class-item');
 
-            classItem.innerHTML = `
+            classItem.innerHTML = 
                 <div class="class-info">
                     <h3>${cls.title}</h3>
                     <p>Subject: ${cls.subject}</p>
@@ -661,7 +638,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>Online: ${cls.isOnline ? 'Yes' : 'No'}</p>
                 </div>
                 <button class="btn-enroll" data-class-id="${cls._id}">Enroll</button>
-            `;
+            ;
 
             classListElement.appendChild(classItem);
         });
@@ -674,6 +651,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    let currentStreak = parseInt(localStorage.getItem('streak')) || 0;
+
+    //Update the streak display
+   function updateStreakDisplay() {
+   streakContainer.textContent = ${currentStreak}-Day Streak;
+   }
+   updateStreakDisplay();
+    
 
     async function enrollInClass(classId) {
         try {
@@ -684,12 +670,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/class/enroll/${classId}`, {
+            const response = await fetch(http://localhost:3000/api/class/enroll/${classId}, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': Bearer ${token}
                 }
             });
+
+            
 
             const result = await response.json();
 
@@ -697,9 +685,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Enrolled in class successfully.');
                 // Optionally, update UI to reflect enrollment
                 // Increment the streak
-                ///currentStreak++;
-                //localStorage.setItem('streak', currentStreak);
-                //updateStreakDisplay();
+                currentStreak++;
+                localStorage.setItem('streak', currentStreak);
+                updateStreakDisplay();
             } else {
                 alert(result.message || 'Error enrolling in class. Please try again.');
             }
@@ -709,6 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
 
 function generateCalendar(classes) {
     const calendarBody = document.getElementById('calendar-body');
