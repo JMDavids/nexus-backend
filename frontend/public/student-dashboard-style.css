@@ -677,3 +677,139 @@ MEDIA QUERY PHONE
 
 
 }
+
+
+main {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+/* Calendar Styling */
+.calendar-container {
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
+
+#month-year {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  color: #444;
+  background-color: #f1f1f1;
+}
+
+tbody td {
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+tbody td:hover {
+  background-color: #f1f8ff;
+  cursor: pointer;
+}
+
+tbody td.inactive {
+  color: #ccc;
+}
+
+tbody td.active {
+  background-color: #007BFF;
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+button {
+  background-color:#ffbf00;;
+  color: #ffffff;
+  border: none;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between buttons and month */
+  margin-bottom: 20px;
+  position: relative; /* Ensures alignment flexibility */
+}
+
+button:hover {
+  background-color:#ffbf00;
+}
+
+button:focus {
+  outline: none;
+}
+/* Highlight the current day */
+.current-day {
+  background-color:#ffbf00;  
+  font-weight: bold;          /* Bold text */
+  border-radius: 50%;         /* Circular background */
+  padding: 10px;              /* Adjust padding */
+}
+.nav-btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+.class-date {
+  background-color: #ffd966;
+  cursor: pointer;
+}
+
+.class-date:hover {
+  background-color: #ffe699;
+}
+/* Blurring the entire streak section */
+.streak-section {
+  filter: blur(5px); /* Apply blur to the whole container */
+  transition: filter 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Remove blur on hover */
+.streak-section:hover {
+  filter: none;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calendar-container {
+      width: 100%;
+      margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  thead th, tbody td {
+      font-size: 0.8em;
+      padding: 8px;
+  }
+}
+

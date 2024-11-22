@@ -11,18 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar')
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        })
-        calendar.render()
-      })
-    </script>
-    <style>
+    
    
-    </style>
   </head>  
 
 <body>
@@ -57,12 +47,6 @@
               </span>
               <h3>Resources</h3>
            </a>
-           <a href="Badges.html">
-              <span class="material-symbols-sharp"><span class="material-symbols-outlined">
-                mode_heat
-                </span></span>
-              <h3>Badges</h3>
-           </a>
            <a href="Student-Inbox.html">
             <span class="material-symbols-outlined">
               mail
@@ -84,14 +68,76 @@
 
            <div class="streaks-container">
             <i class="fas fa-fire" style="color: orange; font-size: 24px;"></i>
-            <span>0-Day Streak, Keep the streak going! 🌟</span>
+            <span>0 Point Streak, Keep the streak going! 🌟</span>
         </div>
-
+        <div class="insights">
+          <!--  Streak section -->
+          <div class="streak-section">
+            <div class="middle">
+              <div class="update">
+                <div class="profile-photo">
+                  <img src="achievement-svgrepo-com.svg" alt="Achievement Badge" />
+                  <h4 class="badge-name">5 Point Streak, Keep the streak going!🌟</h4>
+                  <p>Small steps, big results—keep going! Register for more classes to increase points!</p>
+                  
+                </div>
+              </div>
+            </div>              
+          </div>
+          
+          <div class="streak-section">
+            <div class="middle">
+              <div class="update">
+                <div class="profile-photo">
+                  <img src="honor-svgrepo-com.svg" alt="Honor Badge" />
+                  <h4 class="badge-name">10 Point Streak, Keep the streak going!🌟</h4>
+                  <p>You're on fire! Keep the streak alive by registering for more classes!</p>
+                </div>
+              </div>
+            </div>              
+          </div>
+          
+          <div class="streak-section">
+            <div class="middle">
+              <div class="update">
+                <div class="profile-photo">
+                  <img src="rocket-svgrepo-com - Copy.svg" alt="Rocket Badge" />
+                  <h4 class="badge-name">5 Point Streak, Keep the streak going!🌟</h4>
+                  <p>Every day counts—stay unstoppable!</p>
+                </div>
+              </div>
+            </div>              
+          </div>
+        </div>
         
-       <div class="recent_order">
-        <h2>Calendar </h2>
-        <div id='calendar'></div>
+        
+        <!-- Calendar Section -->
+        <div class="col-lg-6 mb-4">
+          <div class="calendar-container border p-3 rounded">
+              <header class="d-flex justify-content-between align-items-center mb-3">
+                  <button id="prev-month" class="btn btn-outline-primary">&lt;</button>
+                  <h2 id="month-year" class="mb-0"></h2>
+                  <button id="next-month" class="btn btn-outline-primary">&gt;</button>
+              </header>
+              <table class="table table-bordered">
+                  <thead class="thead-light">
+                      <tr>
+                          <th>Sun</th>
+                          <th>Mon</th>
+                          <th>Tue</th>
+                          <th>Wed</th>
+                          <th>Thu</th>
+                          <th>Fri</th>
+                          <th>Sat</th>
+                      </tr>
+                  </thead>
+                  <tbody id="calendar-body">
+                      <!-- Calendar dates will be dynamically generated here -->
+                  </tbody>
+              </table>
+          </div>
       </div>
+
   
       </main>
     
@@ -110,7 +156,6 @@
    </div>
     <div class="profile">
        <div class="info">
-           <p><b>Jane Doe</b></p>
            <p>Student</p>
            <small class="text-muted"></small>
        </div>
@@ -121,73 +166,15 @@
       </div>      
     </div>
 </div>
-  <div class="recent_updates">
-     <h2>Upcoming Classes</h2>
-   <div class="updates">
-      <div class="update">
-         <div class="profile-photo">
-            <img src="lo.png" alt=""/>
-         </div>
-        <div class="message">
-          <b>Life Orientation</b>
-          <p>20 March</p>
-        </div>
-      </div>
-      <div class="update">
-        <div class="profile-photo">
-        <img src="hist.png" alt=""/>
-        </div>
-       <div class="message">
-         <b>History</b>
-         <p>19 March</p>
-       </div>
-     </div>
-     <div class="update">
-      <div class="profile-photo">
-         <img src="geo.png" alt=""/>
-      </div>
-     <div class="message">
-       <b>Geography</b>
-       <p>19 March</p>
-     </div>
-   </div>
-  </div>
-  </div>
+   <!-- Upcoming Classes Section -->
+   <div class="col-lg-6">
+    <h2>Upcoming Classes</h2>
+    <div id="classesContainerStudent">
+        <!-- Classes will be loaded here dynamically -->
+    </div>
    <div class="sales-analytics">
      <h2>Recommended</h2>
-      <div class="item onlion">
-        <div class="profile-photo">
-          <img src="phy.png" alt=""/>
-        </div>
-        <div class="right_text">
-          <div class="info">
-            <h3>Physical Science</h3>
-            <small class="text-muted">Book your lesson today!</small>
-          </div>
-        </div>
-      </div>
-      <div class="item onlion">
-        <div class="profile-photo">
-          <img src="eng.png" alt=""/>
-        </div>
-        <div class="right_text">
-          <div class="info">
-            <h3>English</h3>
-            <small class="text-muted">Book your lesson today!</small>
-          </div>        
-        </div>
-      </div>
-      <div class="item onlion">
-        <div class="profile-photo">
-          <img src="maths.png" alt=""/>
-        </div>
-        <div class="right_text">
-          <div class="info">
-            <h3>Mathematics</h3>
-            <small class="text-muted">Book your lesson today!</small>
-          </div>
-        </div>
-      </div>
+    
    </div>
    <script src="student-dashboard.js"></script>
    <script src="scripts.js"></script>

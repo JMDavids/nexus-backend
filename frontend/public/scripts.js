@@ -577,6 +577,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tutorNameElement = document.getElementById('tutorName');
     const classSearchBar = document.getElementById('classSearchBar');
     const streakContainer = document.querySelector('.streaks-container span');
+    const streakSections = document.querySelectorAll('.streak-section');
 
   
 
@@ -672,8 +673,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentStreak = parseInt(localStorage.getItem('streak')) || 0;
 
     //Update the streak display
+    const badgeElement = document.querySelector('.streak-section');
     function updateStreakDisplay() {
-        streakContainer.textContent = `${currentStreak}-Day Streak, Keep the streak going! 🌟`;
+        streakContainer.textContent = `${currentStreak} Point Streak, Keep the streak going! 🌟`;
+      
     }
     updateStreakDisplay();
 
