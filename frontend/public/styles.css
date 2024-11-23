@@ -2165,7 +2165,13 @@ blockquote {
     }
 
 }
-
+.form-check {
+    display: inline-flex;
+    align-items: center;
+}
+.form-check-label {
+    margin-left: 8px;
+}
 
 
 
