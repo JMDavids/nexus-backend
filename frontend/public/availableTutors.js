@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
             tutorItem.classList.add('tutor-item');
 
             tutorItem.innerHTML = `
-                <div class="tutor-info">
-                    <h3>${tutor.firstName} ${tutor.lastName}</h3>
-                    <p>Subjects: ${tutor.subjects ? tutor.subjects.join(', ') : 'N/A'}</p>
-                </div>
-                <button class="btn-view-classes" data-tutor-id="${tutor._id}">View Classes</button>
-            `;
+            <div class="tutor-info">
+            <h3>${tutor.firstName} ${tutor.lastName}</h3>
+            <p>${tutor.subjects ? tutor.subjects.join(', ') : 'N/A'}</p>
+
+            <p><strong>Rating:</strong> ⭐ ${tutor.rating || 'N/A'}</p>
+            <button class="btn-view-classes" data-tutor-id="${tutor._id}">View Classes</button>`;
 
             tutorListElement.appendChild(tutorItem);
         });
