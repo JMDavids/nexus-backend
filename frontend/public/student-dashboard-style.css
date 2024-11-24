@@ -92,11 +92,11 @@ h5{
 small{
   font-size: 0.75rem;
 }
-.profile-photo img{
-  width: 2.8rem;
-  height: 2.8rem;
+.profile-photo img {
+  width: 4rem; /* Increased width */
+  height: 4rem; /* Increased height */
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 50%; /* Keeps the image circular */
 }
 .text-muted{
   color: var(--clr-info-dark);

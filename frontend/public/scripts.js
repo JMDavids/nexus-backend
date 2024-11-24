@@ -550,6 +550,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tutorItem.classList.add('tutor-item');
 
             tutorItem.innerHTML = `
+           
                 <div class="tutor-info">
                 <h3>${tutor.firstName} ${tutor.lastName}</h3>
                 <p>${tutor.subjects ? tutor.subjects.join(', ') : 'N/A'}</p>
