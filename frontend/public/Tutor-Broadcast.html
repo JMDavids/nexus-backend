@@ -4,44 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Tutoring Academy</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="student-dashboard-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="student-dashboard-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             display: flex;
             background-color: #f4f4f4;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-        }
-
-        .profile-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar h2 {
-            margin: 0;
-            padding: 10px 0;
-        }
-
-        .sidebar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .sidebar a:hover {
-            background-color: #34495e;
         }
 
         .main-content {
@@ -108,15 +81,53 @@
    
 </head>
 <body>
-    <div class="sidebar">
-        <div class="profile-container">
-            <!-- Profile content here if needed -->
-        </div>
-        <a href="tutor-dashboard.html"><i class="icon-home"></i> Home</a>
-        <a href="Schedule.html"><i class="icon-calendar"></i> Schedule Class</a>
-        <a href="tutor-dashboard.html"><i class="icon-classes"></i> Dashboard</a>
-        <a href="Tutor-settings.html"><i class="icon-tutors"></i> Settings</a>
-    </div>
+    <div class="container">
+        <aside>
+           <div class="top">
+             <div class="logo">
+               <h2><span class="danger"></span> </h2>
+             </div>
+             <div class="close" id="close_btn">
+              <span class="material-symbols-sharp">
+                close
+                </span>
+             </div>
+           </div>
+           <!-- end top -->
+            <div class="sidebar">
+  
+              <a href="Student-Dashboard.html">
+                <span class="material-symbols-sharp">Home </span>
+                <h3>Dashbord</h3>
+             </a>
+             <a href="Student-Class.html">
+              <span class="material-symbols-outlined">
+                school
+                </span>
+                <h3>Classes</h3>
+             </a>
+             <a href="Student-Resources.html">
+              <span class="material-symbols-outlined">
+                library_books
+                </span>
+                <h3>Resources</h3>
+             </a>
+             <a href="Student-Inbox.html">
+              <span class="material-symbols-outlined">
+                mail
+                </span>
+                <h3>Messages</h3>
+             </a>
+             <a href="Student-settings.html">
+                <span class="material-symbols-sharp">settings </span>
+                <h3>Settings</h3>
+             </a>
+             <a href="index.html">
+                <span class="material-symbols-sharp">logout </span>
+                <h3>logout</h3>
+             </a>
+            </div>
+        </aside> 
     
     <div class="main-content">
         <h1 class="welcome-text">Broadcast a message to students</h1>
