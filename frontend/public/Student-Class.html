@@ -871,6 +871,31 @@ button:focus {
     .search-container button i {
       margin: 0;
     }
+    .tutorItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+ 
+}
+
+.tutor-info h3 {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.tutor-info p {
+  margin: 3px 0;
+  font-size: 0.9rem;
+}
+
   </style>
    </style>
   </head>  
@@ -893,7 +918,7 @@ button:focus {
                     <span class="material-symbols-sharp">Home</span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="Classes.html">
+                <a href="Student-Class.html">
                     <span class="material-symbols-outlined">school</span>
                     <h3>Classes</h3>
                 </a>
@@ -916,132 +941,23 @@ button:focus {
             </div>
         </aside>
         <main>
-            <h2>Find your tutor 😀</h2>
+            <h1>Find your tutor 😀</h1>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search for tutors or subjects..." />
+              <input type="text" placeholder="Search tutors" class="search-bar" id="searchBar"/>
                 <button id="searchButton">
                     <i class="fas fa-search"></i>
                 </button>
+              
             </div>
             <section class="tutors-list">
                 <h3>Available Tutors</h3>
-                <div class="insights">
-                    <!-- First Row -->
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (5).png" alt="Sizwe Mhlongo's avatar" />
-                                    <h4 class="badge-name">Sizwe Mhlongo</h4>
-                                    <p>⭐5.0</p>
-                                    English
-                                    <p>Experienced English tutor with a strong background in IELTS.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Sizwe Mhlongo">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (2).png" alt="Janelle Silver's avatar" />
-                                    <h4 class="badge-name">Janelle Silver</h4>
-                                    <p>⭐4.9</p>
-                                    Mathematics
-                                    <p>Expert in mathematics with 5 years of experience.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Janelle Silver">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (2).png" alt="Rahul Patel's avatar" />
-                                    <h4 class="badge-name">Rahul Patel</h4>
-                                    <p>⭐4.8</p>
-                                    Physical Science
-                                    <p>Physics specialist passionate about simplifying complex concepts.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Rahul Patel">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (5).png" alt="Emily Zhang's avatar" />
-                                    <h4 class="badge-name">Emily Zhang</h4>
-                                    <p>⭐5.0</p>
-                                    Life Sciences
-                                    <p>Biology and chemistry tutor with 10 years of experience.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Emily Zhang">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- Second Row -->
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (4).png" alt="Ahmed Khan's avatar" />
-                                    <h4 class="badge-name">Ahmed Khan</h4>
-                                    <p>⭐4.7</p>
-                                    Computer Application Technology
-                                    <p>Computer Application Technology focusing on Excel and C programming.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Ahmed Khan">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (2).png" alt="Linda Perez's avatar" />
-                                    <h4 class="badge-name">Linda Perez</h4>
-                                    <p>⭐5.0</p>
-                                    English
-                                    <p>Enlish language tutor with over 8 years of teaching experience.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Linda Perez">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (4).png" alt="Tom Williams's avatar" />
-                                    <h4 class="badge-name">Tom Williams</h4>
-                                    <p>⭐4.8</p>
-                                    History
-                                    <p>History enthusiast helping students connect with the past.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Tom Williams">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-section">
-                        <div class="middle">
-                            <div class="update">
-                                <div class="profile-photo">
-                                    <img src="file (5).png" alt="Sophia Brown's avatar" />
-                                    <h4 class="badge-name">Sophia Brown</h4>
-                                    <p>⭐4.9</p>
-                                    English
-                                    <p>Creative writing mentor for aspiring authors and storytellers.</p>
-                                    <button class="enroll-btn" aria-label="Enroll with Sophia Brown">View Classes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Tutors List -->
+        <div id="tutorList" class="tutor-list">
+          <!-- Tutors will be loaded here dynamically -->
+      </div>
+
+               
             </section>
-        </body>            
+        </body>   
+        <script src="scripts.js"></script>         
 </html>
