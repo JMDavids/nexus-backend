@@ -96,11 +96,15 @@ width: 100%;
 
 }
 
-button:hover {
+label.inline {
+        display: inline-block;
+        margin: 10px 0 5px;
+    }
 
-background-color: #004080;
-
-}
+    input[type="checkbox"] {
+        margin-right: 10px; /* Add space between checkbox and text */
+        vertical-align: middle; /* Align with text vertically */
+    }
 </style>
 <body>
     <div class="container">
@@ -136,8 +140,14 @@ background-color: #004080;
                 <input type="checkbox" name="isOnline" id="isOnline">
                 This will be an online class
             </label>
+            <button 
+                type="submit" 
+                class="btn btn-primary btn-block" 
+                style="background-color: #d94818; border-color: #d94818; color: #fff;">
+                Schedule Class
+            </button>
         
-            <button type="submit">Schedule Class</button>
+           
         </form>
     </div>
 
