@@ -795,7 +795,9 @@ button:focus {
 .streak-section:hover {
   filter: none;
 }
-
+body {
+  background-color: #fff8ed;
+}
 
 
 /* Responsive Design */
