@@ -269,6 +269,7 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
+    margin-top: 30px;
 }
 header {
     display: flex;
@@ -318,4 +319,7 @@ td.current-day {
 
 td:hover {
     background-color: #f0f0f0;
+}
+.streak-section {
+    margin-bottom: 20px; /* Adds space between each badge */
 }

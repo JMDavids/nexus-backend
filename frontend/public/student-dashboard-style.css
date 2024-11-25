@@ -690,6 +690,7 @@ main {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
+  margin-top: 30px; 
 }
 
 
@@ -788,7 +789,10 @@ button:focus {
 /* Blurring the entire streak section */
 .streak-section {
   filter: blur(5px); /* Apply blur to the whole container */
-  transition: filter 0.3s ease; /* Smooth transition for hover effect */
+  transition: filter 0.3s ease; 
+ 
+    margin-bottom: 20px; /* Adds space between each badge */
+/* Smooth transition for hover effect */
 }
 
 /* Remove blur on hover */
@@ -814,4 +818,5 @@ body {
       padding: 8px;
   }
 }
+
 

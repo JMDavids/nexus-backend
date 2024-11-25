@@ -1337,10 +1337,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.btn-attend').forEach(button => {
             button.addEventListener('click', function() {
                 const classId = this.getAttribute('data-class-id');
-                // Implement the logic to attend the class
-                alert(`Attending class with ID: ${classId}`);
+                const zoomUrl = 'https://www.zoom.com/';
+               // Implement the logic to attend the class
+               alert(`Attending class with ID: ${classId}, relocating to the zoom`);
+                
                 // Redirect or open the class link if available
+                window.location.href = zoomUrl; // Redirect to Zoom login page
+
             });
+            
         });
     }
     
@@ -1422,5 +1427,5 @@ renderCalendar(currentDate);
 
     
 
-    
+
     

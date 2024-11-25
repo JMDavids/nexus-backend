@@ -279,13 +279,18 @@ document.addEventListener('DOMContentLoaded', function() {
             classesContainer.appendChild(classItem);
         });
     
+    
         // Add event listeners to "Attend" buttons
         document.querySelectorAll('.btn-attend').forEach(button => {
             button.addEventListener('click', function() {
                 const classId = this.getAttribute('data-class-id');
-                // Implement the logic to attend the class
-                alert(`Attending class with ID: ${classId}`);
+                const zoomUrl = 'https://www.zoom.com/';
+               // Implement the logic to attend the class
+               alert(`Attending class with ID: ${classId}, relocating to the zoom. Your Meeting ID and Password to join class was sent by your Tutor,check messages `);
+                
                 // Redirect or open the class link if available
+                window.location.href = zoomUrl; // Redirect to Zoom login page
+
             });
         });
     }
