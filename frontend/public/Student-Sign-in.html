@@ -6,22 +6,32 @@
     <title>Sign In</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url(Learn-today.png); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        a {
+            color: #d94818; /* Set the default hyperlink color */
+            text-decoration: none; /* Remove underline */
+        }
+
+        a:hover {
+            color: #a73612; /* Darker shade for hover effect */
+            text-decoration: underline; /* Add underline on hover */
+        }
+    </style>
 </head>
-<style>
-    body {
-        background-image: url(Learn-today.png); 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }
-</style>
 <body>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="card p-4 shadow-lg" style="width: 400px; border-radius: 15px;">
             <h2 class="text-center mb-4">Sign In</h2>
             <p class="text-center">Don't have an account? <a href="Student-SignUp.html">Create account</a></p>
-            <form id = studentSignInForm>
+            <form id="studentSignInForm">
                 <div class="form-group">
                     <input type="email" class="form-control" placeholder="E-mail" required>
                 </div>
