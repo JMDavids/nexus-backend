@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const classesContainer = document.getElementById('classesContainerStudent');
+    const pastClassesContainer = document.getElementById('pastClassesContainerStudent');
     const mainProfilePic = document.getElementById('mainProfilePic');
 
     const subjectImageMap = {
@@ -45,16 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 let classes = result.classes;
     
-                // Filter out past classes
-                const now = new Date();
-                classes = classes.filter(cls => {
-                    // Combine class date and start time
-                    const classDateTime = getClassDateTime(cls.date, cls.startTime);
-                    return classDateTime >= now;
-                });
-    
-                displayClasses(classes);
-                generateCalendar(classes);
+                // Separate classes and display
+                separateAndDisplayClasses(classes);
             } else {
                 alert(result.message || 'Error fetching classes. Please try again.');
             }
@@ -62,6 +55,25 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching enrolled classes:', error);
             alert('Error fetching classes. Please try again later.');
         }
+    }
+
+    function separateAndDisplayClasses(classes) {
+        const now = new Date();
+        const upcomingClasses = [];
+        const pastClasses = [];
+    
+        classes.forEach(cls => {
+            const classDateTime = getClassDateTime(cls.date, cls.startTime);
+            if (classDateTime >= now) {
+                upcomingClasses.push(cls);
+            } else {
+                pastClasses.push(cls);
+            }
+        });
+    
+        displayClasses(upcomingClasses);
+        displayPastClasses(pastClasses);
+        generateCalendar(classes); // Pass all classes to the calendar
     }
 
     function getClassDateTime(classDateStr, startTimeStr) {
@@ -120,10 +132,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Check if there's a class on this date
                         const classesOnDate = classes.filter(cls => {
                             const classDateTime = getClassDateTime(cls.date, cls.startTime);
-                            return classDateTime.getDate() === date &&
-                                classDateTime.getMonth() === month &&
-                                classDateTime.getFullYear() === year;
+                            const cellDate = new Date(year, month, date);
+                        
+                            return classDateTime.getDate() === cellDate.getDate() &&
+                                classDateTime.getMonth() === cellDate.getMonth() &&
+                                classDateTime.getFullYear() === cellDate.getFullYear() &&
+                                classDateTime >= new Date();
                         });
+                        
     
                         if (classesOnDate.length > 0) {
                             cell.classList.add('class-date');
@@ -170,6 +186,49 @@ document.addEventListener('DOMContentLoaded', function() {
             renderCalendar(currentMonth, currentYear);
         });
     }
+
+    function displayPastClasses(classes) {
+        if (!pastClassesContainer) return;
+
+        pastClassesContainer.innerHTML = ''; // Clear existing content
+
+        if (classes.length === 0) {
+            pastClassesContainer.innerHTML = '<p>No past classes.</p>';
+            return;
+        }
+
+        classes.forEach(cls => {
+            const classItem = document.createElement('div');
+            classItem.classList.add('class-item');
+    
+            const imageFileName = subjectImageMap[cls.subject] || 'default.png';
+    
+            classItem.innerHTML = `
+                <div class="class-content">
+                    <div class="d-flex align-items-center">
+                        <img src="src/${imageFileName}" alt="${cls.subject}">
+                        <div>
+                            <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
+                            <p>Date: ${new Date(cls.date).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-rate-class" data-class-id="${cls._id}">Rate</button>
+            `;
+    
+            pastClassesContainer.appendChild(classItem);
+        });
+
+        // Add event listeners to "Rate" buttons
+        pastClassesContainer.querySelectorAll('.btn-rate-class').forEach(button => {
+            button.addEventListener('click', function() {
+                const classId = this.getAttribute('data-class-id');
+                // Implement the logic to rate the class
+                alert(`Rating class with ID: ${classId}`);
+                // Redirect to rating page or open a modal
+            });
+        });
+    }
     
 
     function displayClasses(classes) {
@@ -207,14 +266,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const imageFileName = subjectImageMap[cls.subject] || 'default.png';
     
             classItem.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <img src="src/${imageFileName}" alt="${cls.subject}" class="class-img">
-                    <div>
-                        <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
-                        <p>${timeUntilClass}</p>
-                    </div>
+            <div class="d-flex align-items-center">
+                <img src="src/${imageFileName}" alt="${cls.subject}">
+                <div>
+                    <p><strong>${cls.subject.toUpperCase()}</strong><br>${cls.title}</p>
+                    <p>${timeUntilClass}</p>
                 </div>
-                <button class="btn btn-secondary btn-attend" data-class-id="${cls._id}">Attend</button>
+            </div>
+            <button class="btn btn-secondary btn-attend" data-class-id="${cls._id}">Attend</button>
             `;
     
             classesContainer.appendChild(classItem);
