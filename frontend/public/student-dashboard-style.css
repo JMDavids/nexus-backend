@@ -737,7 +737,7 @@ tbody td.active {
 }
 
 button {
-  background-color:#ffbf00;;
+  background-color:#d94818;
   color: #ffffff;
   border: none;
   border: none;
@@ -756,7 +756,7 @@ header {
 }
 
 button:hover {
-  background-color:#ffbf00;
+  background-color:#d94818;
 }
 
 button:focus {
