@@ -11,7 +11,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    
+    <style>
+          .past-classes .class-item {
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners for a polished look */
+    padding: 16px; /* Space inside the border */
+    margin-bottom: 12px; /* Space between each class item */
+    background-color: #f9f9f9; /* Slightly off-white background for contrast */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted appearance */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.past-classes .class-item:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.past-classes .class-content {
+    display: flex;
+    align-items: center;
+}
+
+.past-classes img {
+    width: 60px; /* Adjust image size */
+    height: 60px;
+    border-radius: 4px; /* Rounded image corners */
+    margin-right: 16px; /* Space between image and text */
+}
+    </style>
    
   </head>  
 
@@ -133,7 +160,7 @@
 <div class="col-lg-6">
   <div class="mb-4">
       <h2>Your Past Classes</h2>
-      <div id="pastClassesContainer">
+      <div id="pastClassesContainer" class="past-classes">
           <!-- Past classes will be dynamically inserted here -->
       </div>
   </div>
