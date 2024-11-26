@@ -1018,7 +1018,7 @@ button:focus {
                     return;
                 }
 
-                const response = await fetch('http://localhost:3000/api/messages/inbox', {
+                const response = await fetch('/api/messages/inbox', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
