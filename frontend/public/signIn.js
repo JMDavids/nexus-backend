@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 try {
                     // Make API call to the login endpoint
-                    const response = await fetch('http://localhost:3000/api/user/login', {
+                    const response = await fetch('https://nexus-backend-1-qlec.onrender.com/user/login', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
