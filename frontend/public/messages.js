@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
-        const response = await fetch('http://localhost:3000/api/messages/broadcast', {
+        const response = await fetch('/api/messages/broadcast', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
