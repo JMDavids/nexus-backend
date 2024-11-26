@@ -27,12 +27,13 @@ app.get('*', (req, res) => {
 });
 
 // Connect to MongoDB and start the server
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Connected to DB successfully; running on port ${process.env.PORT}`);
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => {
+            console.log(`Connected to DB successfully; running on port ${PORT}`);
         });
     })
     .catch((error) => {
-        console.log(error);
+        console.error('Database connection error:', error);
     });
