@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (email) {
                 try {
                     // Make API call to request password reset
-                    const response = await fetch('http://localhost:3000/api/user/forgot-password', {
+                    const response = await fetch('/api/user/forgot-password', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             try {
                 // Make API call to reset password
-                const response = await fetch('http://localhost:3000/api/user/reset-password', {
+                const response = await fetch('/api/user/reset-password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

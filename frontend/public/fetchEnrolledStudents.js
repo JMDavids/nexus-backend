@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/class/class/${classId}/students`, {
+            const response = await fetch(`/api/class/class/${classId}/students`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

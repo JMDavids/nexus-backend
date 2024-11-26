@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Fetch tutor's information
-        fetch(`http://localhost:3000/api/user/${tutorId}`)
+        fetch(`/api/user/${tutorId}`)
             .then(response => response.json())
             .then(data => {
                 const tutor = data.user;

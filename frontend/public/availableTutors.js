@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (tutorListElement) {
         // Fetch list of tutors from the backend
-        fetch('http://localhost:3000/api/class/tutors')
+        fetch('/api/class/tutors')
             .then(response => response.json())
             .then(data => {
                 const tutors = data.tutors;

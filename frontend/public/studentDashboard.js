@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch('http://localhost:3000/api/class/streak', {
+            const response = await fetch('/api/class/streak', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
     
-            const response = await fetch('http://localhost:3000/api/class/enrolled-classes', {
+            const response = await fetch('/api/class/enrolled-classes', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/class/rate/${selectedClassId}`, {
+            const response = await fetch(`/api/class/rate/${selectedClassId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

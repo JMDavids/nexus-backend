@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
     
-            const response = await fetch('http://localhost:3000/api/class/my-classes', {
+            const response = await fetch('/api/class/my-classes', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/class/${classId}`, {
+            const response = await fetch(`/api/class/${classId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/class/class/${classId}/students`, {
+            const response = await fetch(`/api/class/class/${classId}/students`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

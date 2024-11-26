@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                const response = await fetch('http://localhost:3000/api/class/create', {
+                const response = await fetch('/api/class/create', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Make API call to update user settings
-                const response = await fetch('http://localhost:3000/api/user/settings', {
+                const response = await fetch('/api/user/settings', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

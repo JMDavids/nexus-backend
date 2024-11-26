@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                const response = await fetch(`http://localhost:3000/api/class/${classId}`, {
+                const response = await fetch(`/api/class/${classId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                const response = await fetch(`http://localhost:3000/api/class/${classId}`, {
+                const response = await fetch(`/api/class/${classId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

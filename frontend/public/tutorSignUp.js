@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
           try {
             // Make API call to the register endpoint
-            const response = await fetch('http://localhost:3000/api/user/register', {
+            const response = await fetch('/api/user/register', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
