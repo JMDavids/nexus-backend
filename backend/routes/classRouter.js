@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createClass, getTutors, getClassesByTutorId, enrollInClass, getEnrolledStudents, getMyClasses, getEnrolledClassesForStudent, updateClass, deleteClass, getClassById, getCurrentStreak } = require('../controller/classController');
+const { createClass, getTutors, getClassesByTutorId, enrollInClass, getEnrolledStudents, getMyClasses, getEnrolledClassesForStudent, updateClass, deleteClass, getClassById, getCurrentStreak, rateClass } = require('../controller/classController');
 const authMiddleware = require('../middleware/auth');
 
 // Add this route to get the current streak
@@ -33,6 +33,8 @@ router.delete('/:classId', authMiddleware.authenticateToken, deleteClass);
 
 // Get class details by ID (Tutor only)
 router.get('/:classId', authMiddleware.authenticateToken, getClassById);
+
+router.post('/rate/:classId', authMiddleware.authenticateToken, rateClass);
 
 
 

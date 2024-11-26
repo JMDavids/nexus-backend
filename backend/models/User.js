@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['tutor', 'student'], default: 'tutor' },
     subjects: { type: [String], required: function() { return this.role === 'tutor'; } },
     streak: { type: Number, default: 0 },
+    rating: {type: Number, min: 1, max: 5, default: 0},
     resetPasswordToken: String,
     resetPasswordExpires: Date
 }, {timestamps: true});

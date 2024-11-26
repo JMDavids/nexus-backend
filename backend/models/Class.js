@@ -2,6 +2,24 @@
 
 const mongoose = require('mongoose');
 
+const RatingSchema = new mongoose.Schema({
+    studentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        required: true
+    },
+    ratedAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
 const classSchema = new mongoose.Schema({
     tutor: {
         type: mongoose.Schema.Types.ObjectId,
@@ -38,6 +56,12 @@ const classSchema = new mongoose.Schema({
             ref: 'User'
         }
     ],
+
+    ratings: {
+        type: [RatingSchema],
+        default: []
+    },
+    
     maxStudents: {
         type: Number,
         default: 0 // 0 means no limit

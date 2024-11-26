@@ -5,6 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const streakContainer = document.getElementById('streakDisplay');
     const streakSections = document.querySelectorAll('.streak-section');
 
+    const ratingModal = document.getElementById('ratingModal');
+    const closeButton = document.querySelector('.close-button');
+    const starRatingContainer = document.getElementById('starRating');
+    const submitRatingButton = document.getElementById('submitRating');
+
+    let selectedClassId = null;
+    let selectedRating = 0;
+
     const subjectImageMap = {
         'Mathematics': 'maths.png',
         'Life Science': 'ls.png',
@@ -63,6 +71,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call fetchCurrentStreak when the page loads
     fetchCurrentStreak();
+
+    function showToast(message) {
+        const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) return;
+
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+
+        toastContainer.appendChild(toast);
+
+        // Trigger reflow to apply the show class
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100); // Slight delay to allow CSS transition
+
+        // Remove the toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.classList.add('hide');
+            // Remove from DOM after transition
+            toast.addEventListener('transitionend', () => {
+                toastContainer.removeChild(toast);
+            });
+        }, 3000);
+    }
 
     // Function to update the streak display and unblur badges
     function updateStreakDisplay() {
@@ -133,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         displayPastClasses(pastClasses);
         generateCalendar(classes); // Pass all classes to the calendar
     }
-    
+
     function getClassDateTime(classDateStr, startTimeStr) {
         const classDate = new Date(classDateStr);
         const [hours, minutes] = startTimeStr.split(':').map(Number);
@@ -282,10 +316,156 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function() {
                 const classId = this.getAttribute('data-class-id');
                 // Implement the logic to rate the class
-                alert(`Rating class with ID: ${classId}`);
-                // Redirect to rating page or open a modal
+                openRatingModal(classId);
             });
         });
+    }
+
+    function openRatingModal(classId) {
+        selectedClassId = classId;
+        selectedRating = 0;
+        renderStars();
+        ratingModal.style.display = 'block';
+    }
+
+    function closeRatingModal() {
+        ratingModal.style.display = 'none';
+        selectedClassId = null;
+        selectedRating = 0;
+    }
+
+    function renderStars() {
+        starRatingContainer.innerHTML = ''; // Clear existing stars
+
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement('span');
+            star.classList.add('star');
+            star.innerHTML = '★';
+            star.dataset.value = i;
+
+            if (i <= selectedRating) {
+                star.classList.add('selected');
+            }
+
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.dataset.value);
+                updateStarDisplay();
+            });
+
+            star.addEventListener('mouseover', function() {
+                const hoverValue = parseInt(this.dataset.value);
+                highlightStars(hoverValue);
+            });
+
+            star.addEventListener('mouseout', function() {
+                highlightStars(selectedRating);
+            });
+
+            starRatingContainer.appendChild(star);
+        }
+    }
+
+    // Highlight stars on hover or selection
+    function highlightStars(rating) {
+        const stars = starRatingContainer.querySelectorAll('.star');
+        stars.forEach(star => {
+            const starValue = parseInt(star.dataset.value);
+            if (starValue <= rating) {
+                star.classList.add('selected');
+            } else {
+                star.classList.remove('selected');
+            }
+        });
+    }
+
+    // Update stars after selection
+    function updateStarDisplay() {
+        highlightStars(selectedRating);
+    }
+
+    // Event listener for closing the modal
+    closeButton.addEventListener('click', closeRatingModal);
+
+    // Event listener for submitting the rating
+    submitRatingButton.addEventListener('click', submitRating);
+
+    // Event listener to close modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+        if (event.target == ratingModal) {
+            closeRatingModal();
+        }
+    });
+
+    // Function to submit the rating
+    async function submitRating() {
+        if (!selectedClassId || selectedRating === 0) {
+            showToast('Please select a rating before submitting.');
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('You are not authenticated. Please log in.');
+                window.location.href = 'SignIn.html';
+                return;
+            }
+
+            const response = await fetch(`http://localhost:3000/api/class/rate/${selectedClassId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ rating: selectedRating })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                showToast('Class rated successfully!');
+                closeRatingModal();
+                // Optionally, refresh the page or update the class item to disable the "Rate" button
+                // For example, disable the button:
+                const rateButton = pastClassesContainer.querySelector(`button[data-class-id="${selectedClassId}"]`);
+                if (rateButton) {
+                    rateButton.textContent = 'Rated';
+                    rateButton.disabled = true;
+                }
+            } else {
+                showToast(result.message || 'Error rating class. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error submitting rating:', error);
+            showToast('Error submitting rating. Please try again later.');
+        }
+    }
+
+    // Function to show toast notifications
+    function showToast(message) {
+        const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) return;
+
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+
+        toastContainer.appendChild(toast);
+
+        // Trigger reflow to apply the show class
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100); // Slight delay to allow CSS transition
+
+        // Remove the toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.classList.add('hide');
+            // Remove from DOM after transition
+            toast.addEventListener('transitionend', () => {
+                toastContainer.removeChild(toast);
+            });
+        }, 3000);
     }
     
 

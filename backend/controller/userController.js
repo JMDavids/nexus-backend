@@ -221,9 +221,6 @@ exports.updateUserSettings = async (req, res) => {
         const userId = req.user.userId; // Retrieved from the authentication middleware
         const { username, email, password } = req.body;
 
-        // Validate input (you can use a validation library or write custom validation)
-        // For simplicity, we'll assume the input is valid
-
         const updateData = {};
 
         if (username) {

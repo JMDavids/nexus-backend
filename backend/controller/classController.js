@@ -278,5 +278,62 @@ exports.getCurrentStreak = async (req, res) => {
     }
 };
 
+exports.rateClass = async (req, res) => {
+    try {
+        const classId = req.params.classId;
+        const studentId = req.user.userId;
+        const { rating } = req.body;
+
+        // Validate rating
+        if (!rating || rating < 1 || rating > 5) {
+            return res.status(400).json({ message: 'Rating must be between 1 and 5.' });
+        }
+
+        // Find the class
+        const cls = await Class.findById(classId).populate('tutor');
+        if (!cls) {
+            return res.status(404).json({ message: 'Class not found.' });
+        }
+
+        // Check if the student was enrolled in the class
+        if (!cls.studentsEnrolled.includes(studentId)) {
+            return res.status(403).json({ message: 'You were not enrolled in this class.' });
+        }
+
+        // Check if the class has already occurred
+        const classDateTime = new Date(cls.date);
+        const [hours, minutes] = cls.startTime.split(':').map(Number);
+        classDateTime.setHours(hours, minutes, 0, 0);
+        if (classDateTime > new Date()) {
+            return res.status(400).json({ message: 'Cannot rate a class that has not yet occurred.' });
+        }
+
+        // Check if the student has already rated this class
+        const existingRating = cls.ratings.find(r => r.studentId.toString() === studentId);
+        if (existingRating) {
+            return res.status(400).json({ message: 'You have already rated this class.' });
+        }
+
+        // Add the new rating
+        cls.ratings.push({ studentId, rating });
+        await cls.save();
+
+        // Recalculate the tutor's aggregate rating
+        const tutor = await User.findById(cls.tutor._id);
+        const totalRatings = cls.ratings.length;
+        const sumRatings = cls.ratings.reduce((sum, r) => sum + r.rating, 0);
+        const averageRating = sumRatings / totalRatings;
+
+        // Update the tutor's rating
+        tutor.rating = averageRating.toFixed(1); // Round to one decimal
+        await tutor.save();
+
+        res.status(200).json({ message: 'Class rated successfully.', rating: tutor.rating });
+    } catch (error) {
+        console.error('Error rating class:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
 
 
