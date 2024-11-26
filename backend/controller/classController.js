@@ -113,6 +113,11 @@ exports.enrollInClass = async (req, res) => {
         classToEnroll.studentsEnrolled.push(studentId);
         await classToEnroll.save();
 
+        // Return updated streak (assuming streak is handled here)
+        const user = await User.findById(studentId);
+        user.streak += 1;
+        await user.save();
+
         res.status(200).json({ message: 'Enrolled in class successfully.' });
     } catch (error) {
         console.error('Error enrolling in class:', error);
@@ -250,6 +255,25 @@ exports.getClassById = async (req, res) => {
         res.status(200).json({ class: classData });
     } catch (error) {
         console.error('Error fetching class details:', error);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
+
+// Get the current streak for the authenticated student
+exports.getCurrentStreak = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const role = req.user.role;
+
+        if (role !== 'student') {
+            return res.status(403).json({ message: 'Access denied. Only students can access this endpoint.' });
+        }
+
+        const user = await User.findById(userId);
+
+        res.status(200).json({ streak: user.streak || 0 });
+    } catch (error) {
+        console.error('Error fetching streak:', error);
         res.status(500).json({ message: 'Server error. Please try again later.' });
     }
 };

@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createClass, getTutors, getClassesByTutorId, enrollInClass, getEnrolledStudents, getMyClasses, getEnrolledClassesForStudent, updateClass, deleteClass, getClassById } = require('../controller/classController');
+const { createClass, getTutors, getClassesByTutorId, enrollInClass, getEnrolledStudents, getMyClasses, getEnrolledClassesForStudent, updateClass, deleteClass, getClassById, getCurrentStreak } = require('../controller/classController');
 const authMiddleware = require('../middleware/auth');
+
+// Add this route to get the current streak
+router.get('/streak', authMiddleware.authenticateToken, getCurrentStreak);
 
 // Create a class (Tutor only)
 router.post('/create', authMiddleware.authenticateToken, createClass);

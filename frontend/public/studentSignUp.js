@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
         // Get form values
         const username = createAccountForm.querySelector('input[placeholder="Username"]').value;
-        const firstName = createAccountForm.querySelector('input[placeholder="First name"]').value;
-        const lastName = createAccountForm.querySelector('input[placeholder="Last name"]').value;
+        const firstName = createAccountForm.querySelector('input[placeholder="First Name"]').value;
+        const lastName = createAccountForm.querySelector('input[placeholder="Last Name"]').value;
         const email = createAccountForm.querySelector('input[placeholder="E-mail"]').value;
         const password = createAccountForm.querySelector('input[placeholder="Password"]').value;
         const termsAccepted = createAccountForm.querySelector('#termsCheck').checked;

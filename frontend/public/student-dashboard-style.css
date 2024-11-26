@@ -786,19 +786,18 @@ button:focus {
 .class-date:hover {
   background-color: #ffe699;
 }
-/* Blurring the entire streak section */
-.streak-section {
+
+/* Blurring the entire streak section if it does not have the 'unblurred' class */
+.streak-section:not(.unblurred) {
   filter: blur(5px); /* Apply blur to the whole container */
-  transition: filter 0.3s ease; 
- 
-    margin-bottom: 20px; /* Adds space between each badge */
-/* Smooth transition for hover effect */
+  transition: filter 0.3s ease; /* Smooth transition for hover effect */
 }
 
-/* Remove blur on hover */
-.streak-section:hover {
+/* Remove blur on hover for blurred streak sections */
+.streak-section:not(.unblurred):hover {
   filter: none;
 }
+
 body {
   background-color: #fff8ed;
 }

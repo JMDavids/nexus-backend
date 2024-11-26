@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const classesContainer = document.getElementById('classesContainerStudent');
     const pastClassesContainer = document.getElementById('pastClassesContainerStudent');
     const mainProfilePic = document.getElementById('mainProfilePic');
+    const streakContainer = document.getElementById('streakDisplay');
+    const streakSections = document.querySelectorAll('.streak-section');
 
     const subjectImageMap = {
         'Mathematics': 'maths.png',
@@ -24,6 +26,62 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch and display enrolled classes
     if (classesContainer) {
         fetchEnrolledClasses();
+    }
+
+    // Initialize current streak
+    let currentStreak = 0;
+
+    // Fetch current streak from the server
+    async function fetchCurrentStreak() {
+        try {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                alert('You are not authenticated. Please log in.');
+                window.location.href = 'SignIn.html';
+                return;
+            }
+
+            const response = await fetch('http://localhost:3000/api/class/streak', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                currentStreak = result.streak || 0;
+                updateStreakDisplay();
+            } else {
+                alert(result.message || 'Error fetching streak. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error fetching streak:', error);
+            alert('Error fetching streak. Please try again later.');
+        }
+    }
+
+    // Call fetchCurrentStreak when the page loads
+    fetchCurrentStreak();
+
+    // Function to update the streak display and unblur badges
+    function updateStreakDisplay() {
+        streakContainer.textContent = `${currentStreak} Point Streak, Keep the streak going! 🌟`;
+
+        // Unblur badges based on current streak
+        streakSections.forEach(function(section) {
+            const requiredStreak = parseInt(section.getAttribute('data-streak'));
+            if (currentStreak >= requiredStreak) {
+                if (!section.classList.contains('unblurred')) {
+                    // Badge was previously blurred, now unblurred
+                    section.classList.add('unblurred');
+                    // Optional: Show a notification
+                    alert(`Congratulations! You've unlocked the ${requiredStreak}-point streak badge!`);
+                }
+            } else {
+                section.classList.remove('unblurred');
+            }
+        });
     }
 
     async function fetchEnrolledClasses() {
@@ -75,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         displayPastClasses(pastClasses);
         generateCalendar(classes); // Pass all classes to the calendar
     }
-
+    
     function getClassDateTime(classDateStr, startTimeStr) {
         const classDate = new Date(classDateStr);
         const [hours, minutes] = startTimeStr.split(':').map(Number);

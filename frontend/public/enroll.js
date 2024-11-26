@@ -2,10 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const classListElement = document.getElementById('classList');
     const tutorNameElement = document.getElementById('tutorName');
     const classSearchBar = document.getElementById('classSearchBar');
-    const streakContainer = document.querySelector('.streaks-container span');
-    const streakSections = document.querySelectorAll('.streak-section');
-
-  
 
     if (classListElement) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -30,35 +26,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Fetch classes by tutor
         fetch(`http://localhost:3000/api/class/tutor/${tutorId}/classes`)
-    .then(response => response.json())
-    .then(data => {
-        let classes = data.classes;
+            .then(response => response.json())
+            .then(data => {
+                let classes = data.classes;
 
-        // Filter out past classes
-        const now = new Date();
-        classes = classes.filter(cls => {
-            const classDateTime = getClassDateTime(cls.date, cls.startTime);
-            return classDateTime >= now;
-        });
+                // Filter out past classes
+                const now = new Date();
+                classes = classes.filter(cls => {
+                    const classDateTime = getClassDateTime(cls.date, cls.startTime);
+                    return classDateTime >= now;
+                });
 
-        displayClasses(classes);
+                displayClasses(classes);
 
-        // Add search functionality
-        if (classSearchBar) {
-            classSearchBar.addEventListener('input', function() {
-                const searchTerm = classSearchBar.value.toLowerCase();
-                const filteredClasses = classes.filter(cls =>
-                    cls.title.toLowerCase().includes(searchTerm) ||
-                    cls.subject.toLowerCase().includes(searchTerm)
-                );
-                displayClasses(filteredClasses);
+                // Add search functionality
+                if (classSearchBar) {
+                    classSearchBar.addEventListener('input', function() {
+                        const searchTerm = classSearchBar.value.toLowerCase();
+                        const filteredClasses = classes.filter(cls =>
+                            cls.title.toLowerCase().includes(searchTerm) ||
+                            cls.subject.toLowerCase().includes(searchTerm)
+                        );
+                        displayClasses(filteredClasses);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching classes:', error);
+                alert('Error fetching classes. Please try again later.');
             });
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching classes:', error);
-        alert('Error fetching classes. Please try again later.');
-    });
     }
 
     function getClassDateTime(classDateStr, startTimeStr) {
@@ -96,16 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    let currentStreak = parseInt(localStorage.getItem('streak')) || 0;
-
-    //Update the streak display
-    const badgeElement = document.querySelector('.streak-section');
-    function updateStreakDisplay() {
-        streakContainer.textContent = `${currentStreak} Point Streak, Keep the streak going! 🌟`;
-      
-    }
-    updateStreakDisplay();
-
 
     async function enrollInClass(classId) {
         try {
@@ -127,11 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 alert('Enrolled in class successfully.');
-                // Optionally, update UI to reflect enrollment
-                // Increment the streak
-                currentStreak++;
-                localStorage.setItem('streak', currentStreak);
-                updateStreakDisplay();
             } else {
                 alert(result.message || 'Error enrolling in class. Please try again.');
             }
