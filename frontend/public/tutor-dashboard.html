@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+    <title>Tutor Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="student-dashboard-style.css">
@@ -33,6 +33,32 @@
 }
 
 .past-classes img {
+    width: 60px; /* Adjust image size */
+    height: 60px;
+    border-radius: 4px; /* Rounded image corners */
+    margin-right: 16px; /* Space between image and text */
+}
+.upcoming-classes .class-item {
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px; /* Rounded corners for a polished look */
+    padding: 16px; /* Space inside the border */
+    margin-bottom: 12px; /* Space between each class item */
+    background-color: #f9f9f9; /* Slightly off-white background for contrast */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted appearance */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upcoming-classes .class-item:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.upcoming-classes .class-content {
+    display: flex;
+    align-items: center;
+}
+
+.upcoming-classes img {
     width: 60px; /* Adjust image size */
     height: 60px;
     border-radius: 4px; /* Rounded image corners */
@@ -150,7 +176,7 @@
 <div class="col-lg-6">
   <div class="mb-4">
       <h2>Your Upcoming Classes</h2>
-      <div id="classesContainer">
+      <div id="classesContainer"  class="upcoming-classes">
           <!-- Upcoming classes will be dynamically inserted here -->
       </div>
   </div>
