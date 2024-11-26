@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
         // Fetch classes by tutor
-        fetch(`http://localhost:3000/api/class/tutor/${tutorId}/classes`)
+        fetch(`/api/class/tutor/${tutorId}/classes`)
             .then(response => response.json())
             .then(data => {
                 let classes = data.classes;
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/class/enroll/${classId}`, {
+            const response = await fetch(`/api/class/enroll/${classId}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
