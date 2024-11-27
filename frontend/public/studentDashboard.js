@@ -109,8 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!section.classList.contains('unblurred')) {
                     // Badge was previously blurred, now unblurred
                     section.classList.add('unblurred');
-                    // Optional: Show a notification
-                    alert(`Congratulations! You've unlocked the ${requiredStreak}-point streak badge!`);
+                    //alert(`Congratulations! You've unlocked the ${requiredStreak}-point streak badge!`);
                 }
             } else {
                 section.classList.remove('unblurred');
@@ -425,8 +424,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 showToast('Class rated successfully!');
                 closeRatingModal();
-                // Optionally, refresh the page or update the class item to disable the "Rate" button
-                // For example, disable the button:
                 const rateButton = pastClassesContainer.querySelector(`button[data-class-id="${selectedClassId}"]`);
                 if (rateButton) {
                     rateButton.textContent = 'Rated';
